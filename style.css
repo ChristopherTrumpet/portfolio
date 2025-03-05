@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    padding 0;
+    padding: 0;
 }
 
 html {
@@ -124,4 +124,34 @@ header nav {
 
     height: 100dvh;
     font-size: 1.6rem;
+}
+
+.title {
+    padding-top: 4.8rem;
+    text-align: center;
+}
+
+.title p {
+    font-size: 1.6rem;
+    color: #808080;
+}
+
+.title h2 {
+    font-size: 2.4rem;
+    font-family: "Roboto Slab", serif;
+}
+
+.cards {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 0 10vw;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.card {
+    background-color: red;
+    width: 100%;
 }
