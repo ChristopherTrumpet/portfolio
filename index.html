@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,47 +11,62 @@
 
     <title>Christopher Trumpet</title>
 </head>
+
 <body>
-   <div class="container">
-    <header>
-        <nav>
-            <div class="work-status">
-                <p><i class="fa-solid fa-graduation-cap"></i> </p>
-                <div class="work-text">
-                    <p>Currently studying / working at</p>
-                    <h3>Purdue University</h3>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="work-status">
+                    <p><i class="fa-solid fa-graduation-cap"></i> </p>
+                    <div class="work-text">
+                        <p>Currently studying / working at</p>
+                        <h3>Purdue University</h3>
+                    </div>
+                </div>
+
+                <ul class="nav-links">
+                    <li class="nav-item">Work</li>
+                    <li class="nav-item">Download Resumé</li>
+                </ul>
+            </nav>
+            <section class="hero">
+                <div class="hero-text">
+                    <p>Software Developer // Student // Human</p>
+                    <h1>Christopher Trumpet Jr</h1>
+                </div>
+                <div class="hero-buttons">
+                    <button class="secondary-button" onClick="document.querySelector('#work').scrollIntoView();">View
+                        Work</button>
+                    <button class="primary-button">Contact Me</button>
+                </div>
+            </section>
+        </header>
+
+        <section id="work">
+            <div class="title">
+                <h2>My Work</h2>
+                <p>A handful of useful projects I worked on</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="bg"></div>
+                    <div class="card-footer"></div>
+                </div>
+                <div class="card">
+                    <div class="bg"></div>
+                    <div class="card-footer"></div>
+                </div>
+                <div class="card">
+                    <div class="bg"></div>
+                    <div class="card-footer"></div>
                 </div>
             </div>
-
-            <ul class="nav-links">
-                <li class="nav-item">Work</li>
-                <li class="nav-item">Download Resumé</li>
-            </ul>
-        </nav>
-        <section class="hero">
-            <div class="hero-text">
-                <p>Software Developer // Student // Human</p>
-                <h1>Christopher Trumpet Jr</h1>
-            </div>
-            <div class="hero-buttons">
-                <button class="secondary-button" onClick="document.querySelector('#work').scrollIntoView();">View Work</button>
-                <button class="primary-button">Contact Me</button>
+            <div class="git-link">
+                <a href="https://github.com/ChristopherTrumpet" target="_blank">View GitHub</a>
             </div>
         </section>
-    </header>
-
-    <section id="work">
-        <div class="title">
-            <h2>My Work</h2>
-            <p>A handful of useful projects I worked on</p>
-        </div>
-        <div class="cards">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-        </div>
-    </section>
-   </div> 
-   <script src="https://kit.fontawesome.com/c43433e5df.js" crossorigin="anonymous"></script>
+    </div>
+    <script src="https://kit.fontawesome.com/c43433e5df.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
