@@ -12,17 +12,37 @@
 </head>
 <body>
    <div class="container">
-    <nav><h3>Purdue University</h3></nav>
     <header>
-        <div class="hero-text">
-            <p>Software Developer // Student // Human</p>
-            <h1>Christopher Trumpet Jr</h1>
-        </div>
-        <div class="hero-buttons">
-            <button class="secondary-button">View Work</button>
-            <button class="primary-button">Contact Me</button>
-        </div>
+        <nav>
+            <div class="work-status">
+                <p><i class="fa-solid fa-graduation-cap"></i> </p>
+                <div class="work-text">
+                    <p>Currently studying / working at</p>
+                    <h3>Purdue University</h3>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item">Work</li>
+                <li class="nav-item">Download Resumé</li>
+            </ul>
+        </nav>
+        <section class="hero">
+            <div class="hero-text">
+                <p>Software Developer // Student // Human</p>
+                <h1>Christopher Trumpet Jr</h1>
+            </div>
+            <div class="hero-buttons">
+                <button class="secondary-button" onClick="document.querySelector('#work').scrollIntoView();">View Work</button>
+                <button class="primary-button">Contact Me</button>
+            </div>
+        </section>
     </header>
+
+    <section id="work">
+        work section
+    </section>
    </div> 
+   <script src="https://kit.fontawesome.com/c43433e5df.js" crossorigin="anonymous"></script>
 </body>
 </html>
