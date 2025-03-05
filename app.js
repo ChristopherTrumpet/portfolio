@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.addEventListener('click', function() {
 
             caseStudySection.style.display = 'block';
+            caseStudySection.style.animation = "bg_blur 0.25s cubic-bezier(.25,0,.25,1) forwards";
             caseStudySection.scrollTo(0, 0);
             body.classList.add("no-scroll");
             
