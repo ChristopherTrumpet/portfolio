@@ -1,124 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Roboto+Slab:wght@100..900&family=Space+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Christopher Trumpet</title>
-</head>
-
-<body >
-    <div class="container">
-        <header>
-            <nav>
-                <div class="work-status">
-                    <p><i class="fa-solid fa-graduation-cap"></i> </p>
-                    <div class="work-text">
-                        <p>Currently studying / working at</p>
-                        <h3>Purdue University</h3>
-                    </div>
-                </div>
-
-                <ul class="nav-links">
-                    <li class="nav-item">Work</li>
-                    <li class="nav-item">Download Resumé</li>
-                </ul>
-            </nav>
-            <section class="hero">
-                <div class="hero-text">
-                    <p>Software Developer // Student // Human</p>
-                    <h1>Christopher Trumpet Jr</h1>
-                </div>
-                <div class="hero-buttons">
-                    <button class="secondary-button" onClick="document.querySelector('#work').scrollIntoView({behavior: 'smooth'});">View
-                        Work</button>
-                    <button class="primary-button">Contact Me</button>
-                </div>
-            </section>
-        </header>
-
-        <section id="work">
-            <div class="title">
-                <h2>My Work</h2>
-                <p>A handful of useful projects I worked on</p>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Roboto+Slab:wght@100..900&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <header class="site-header">
+        <nav class="main-navigation">
+          <div class="status-indicator">
+            <p><i class="fa-solid fa-graduation-cap"></i></p>
+            <div class="status-text">
+              <p>Currently studying / working at</p>
+              <h3>Purdue University</h3>
             </div>
-            <div class="cards">
-                <div class="card">
-                    <div class="bg">
-                        <div class="visual">
-                            <img src="./img/logo-with-text.svg" alt="Envision Center Logo" id="ec" draggable="false">
-                        </div>
-                    </div>
-                    <div class="card-footer"></div>
-                </div>
-                <div class="card">
-                    <div class="bg">
-                        <div class="visual">
-                            <h2 id="portfolio">Portfolio</h2>
-                        </div>
-                    </div>
-                    <div class="card-footer"></div>
-                </div>
-                <div class="card">
-                    <div class="bg">
-                        <div class="visual">
-                            <h2 id="CDH">> CDH Linux Terminal</h2>
-                        </div>
-                    </div>
-                    <div class="card-footer"></div>
-                </div>
-            </div>
-            <div class="git-link">
-                <a href="https://github.com/ChristopherTrumpet" target="_blank">View GitHub</a>
-            </div>
+          </div>
+
+          <ul class="navigation-menu">
+            <li class="menu-item"><a href="#portfolio-section">Work</a></li>
+            <li class="menu-item"><a href="#" download>Download Resumé</a></li>
+          </ul>
+        </nav>
+
+        <section class="hero-section">
+          <div class="hero-content">
+            <p class="hero-subtitle">Software Developer // Student // Human</p>
+            <h1 class="hero-title">Christopher Trumpet Jr</h1>
+          </div>
+          <div class="hero-actions">
+            <button
+              class="btn btn-secondary"
+              onclick="document.querySelector('#portfolio-section').scrollIntoView({behavior: 'smooth'});"
+            >
+              View Work
+            </button>
+            <button class="btn btn-primary">Contact Me</button>
+          </div>
         </section>
+      </header>
 
-        <section class="case-study">
-            <div class="case-content">
-                <div class="case-header">
-                    <div class="case-header-text">
-                        <p class="case-count">01.</p>
-                        <h1 class="case-title">Envision Center</h1>
-                    </div>
-                    <button class="close-button">Close</button>
+      <main>
+        <section id="portfolio-section" class="portfolio">
+          <div class="section-header">
+            <h2 class="section-title">My Work</h2>
+            <p class="section-subtitle">
+              A handful of useful projects I worked on
+            </p>
+          </div>
+
+          <div class="project-grid">
+            <article class="project-card" id="envision-project">
+              <div class="project-content">
+                <div class="project-visual">
+                  <img
+                    src="./img/logo-with-text.svg"
+                    alt="Envision Center Logo"
+                    class="project-logo"
+                    draggable="false"
+                  />
                 </div>
+              </div>
+              <footer class="project-footer"></footer>
+            </article>
 
-                <h2>Virtual Microscope</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum debitis nisi expedita nam quis. Aut doloremque harum cum quia labore, nulla laudantium facilis nihil ullam quae neque assumenda similique commodi!
-                Adipisci harum assumenda molestias culpa cum, distinctio accusantium, praesentium perferendis temporibus sapiente, ea magni facere enim repellendus? Quo dolores modi consectetur iste error? Cum saepe distinctio dolor esse excepturi aliquid.
-                Voluptatibus perferendis beatae sapiente unde at laudantium harum voluptatum deserunt pariatur non. Similique eaque exercitationem quas magni explicabo ducimus animi provident. Vitae laborum quas voluptatibus sequi, aut fuga doloribus ratione!</p>
+            <article class="project-card" id="portfolio-project">
+              <div class="project-content">
+                <div class="project-visual">
+                  <h2 class="project-name">Portfolio</h2>
+                </div>
+              </div>
+              <footer class="project-footer"></footer>
+            </article>
 
-                <h2>VR Interactive Nursing Simulator</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum debitis nisi expedita nam quis. Aut doloremque harum cum quia labore, nulla laudantium facilis nihil ullam quae neque assumenda similique commodi!
-                Adipisci harum assumenda molestias culpa cum, distinctio accusantium, praesentium perferendis temporibus sapiente, ea magni facere enim repellendus? Quo dolores modi consectetur iste error? Cum saepe distinctio dolor esse excepturi aliquid.
-                Voluptatibus perferendis beatae sapiente unde at laudantium harum voluptatum deserunt pariatur non. Similique eaque exercitationem quas magni explicabo ducimus animi provident. Vitae laborum quas voluptatibus sequi, aut fuga doloribus ratione!</p>
+            <article class="project-card" id="cdh-project">
+              <div class="project-content">
+                <div class="project-visual">
+                  <h2 class="project-name">> CDH Linux Terminal</h2>
+                </div>
+              </div>
+              <footer class="project-footer"></footer>
+            </article>
+          </div>
 
-                <h2>VR Interactive Nursing Simulator</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum debitis nisi expedita nam quis. Aut doloremque harum cum quia labore, nulla laudantium facilis nihil ullam quae neque assumenda similique commodi!
-                Adipisci harum assumenda molestias culpa cum, distinctio accusantium, praesentium perferendis temporibus sapiente, ea magni facere enim repellendus? Quo dolores modi consectetur iste error? Cum saepe distinctio dolor esse excepturi aliquid.
-                Voluptatibus perferendis beatae sapiente unde at laudantium harum voluptatum deserunt pariatur non. Similique eaque exercitationem quas magni explicabo ducimus animi provident. Vitae laborum quas voluptatibus sequi, aut fuga doloribus ratione!</p>
-
-                <h2>VR Interactive Nursing Simulator</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum debitis nisi expedita nam quis. Aut doloremque harum cum quia labore, nulla laudantium facilis nihil ullam quae neque assumenda similique commodi!
-                Adipisci harum assumenda molestias culpa cum, distinctio accusantium, praesentium perferendis temporibus sapiente, ea magni facere enim repellendus? Quo dolores modi consectetur iste error? Cum saepe distinctio dolor esse excepturi aliquid.
-                Voluptatibus perferendis beatae sapiente unde at laudantium harum voluptatum deserunt pariatur non. Similique eaque exercitationem quas magni explicabo ducimus animi provident. Vitae laborum quas voluptatibus sequi, aut fuga doloribus ratione!</p>
-
-                <h2>VR Interactive Nursing Simulator</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum debitis nisi expedita nam quis. Aut doloremque harum cum quia labore, nulla laudantium facilis nihil ullam quae neque assumenda similique commodi!
-                Adipisci harum assumenda molestias culpa cum, distinctio accusantium, praesentium perferendis temporibus sapiente, ea magni facere enim repellendus? Quo dolores modi consectetur iste error? Cum saepe distinctio dolor esse excepturi aliquid.
-                Voluptatibus perferendis beatae sapiente unde at laudantium harum voluptatum deserunt pariatur non. Similique eaque exercitationem quas magni explicabo ducimus animi provident. Vitae laborum quas voluptatibus sequi, aut fuga doloribus ratione!</p>
-
-                <a href="https://www.ecshowcase.com/" target="_blank">Visit Link</a>
-            </div>
+          <div class="github-link-container">
+            <a
+              href="https://github.com/ChristopherTrumpet"
+              target="_blank"
+              class="github-link"
+              >View GitHub</a
+            >
+          </div>
         </section>
+      </main>
+
+      <section class="project-details" id="project-details-envision">
+        <div class="details-container">
+          <header class="details-header">
+            <div class="details-header-content">
+              <p class="project-number">01.</p>
+              <h1 class="project-title">Envision Center</h1>
+            </div>
+            <button class="close-btn" aria-label="Close project details">
+              Close
+            </button>
+          </header>
+
+          <div class="details-content">
+            <article class="project-description">
+              <h2 id="first-project-header">Virtual Microscope</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
+                debitis nisi expedita nam quis. Aut doloremque harum cum quia
+                labore, nulla laudantium facilis nihil ullam quae neque
+                assumenda similique commodi! Adipisci harum assumenda molestias
+                culpa cum, distinctio accusantium, praesentium perferendis
+                temporibus sapiente, ea magni facere enim repellendus? Quo
+                dolores modi consectetur iste error? Cum saepe distinctio dolor
+                esse excepturi aliquid. Voluptatibus perferendis beatae sapiente
+                unde at laudantium harum voluptatum deserunt pariatur non.
+                Similique eaque exercitationem quas magni explicabo ducimus
+                animi provident. Vitae laborum quas voluptatibus sequi, aut fuga
+                doloribus ratione!
+              </p>
+            </article>
+
+            <article class="project-description">
+              <h2>VR Interactive Nursing Simulator</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
+                debitis nisi expedita nam quis. Aut doloremque harum cum quia
+                labore, nulla laudantium facilis nihil ullam quae neque
+                assumenda similique commodi! Adipisci harum assumenda molestias
+                culpa cum, distinctio accusantium, praesentium perferendis
+                temporibus sapiente, ea magni facere enim repellendus? Quo
+                dolores modi consectetur iste error? Cum saepe distinctio dolor
+                esse excepturi aliquid. Voluptatibus perferendis beatae sapiente
+                unde at laudantium harum voluptatum deserunt pariatur non.
+                Similique eaque exercitationem quas magni explicabo ducimus
+                animi provident. Vitae laborum quas voluptatibus sequi, aut fuga
+                doloribus ratione!
+              </p>
+            </article>
+
+            <article class="project-description">
+              <h2>Interactive 3D Visualization</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
+                debitis nisi expedita nam quis. Aut doloremque harum cum quia
+                labore, nulla laudantium facilis nihil ullam quae neque
+                assumenda similique commodi! Adipisci harum assumenda molestias
+                culpa cum, distinctio accusantium, praesentium perferendis
+                temporibus sapiente, ea magni facere enim repellendus? Quo
+                dolores modi consectetur iste error? Cum saepe distinctio dolor
+                esse excepturi aliquid. Voluptatibus perferendis beatae sapiente
+                unde at laudantium harum voluptatum deserunt pariatur non.
+                Similique eaque exercitationem quas magni explicabo ducimus
+                animi provident. Vitae laborum quas voluptatibus sequi, aut fuga
+                doloribus ratione!
+              </p>
+            </article>
+
+            <article class="project-description">
+              <h2>Data Visualization Platform</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
+                debitis nisi expedita nam quis. Aut doloremque harum cum quia
+                labore, nulla laudantium facilis nihil ullam quae neque
+                assumenda similique commodi! Adipisci harum assumenda molestias
+                culpa cum, distinctio accusantium, praesentium perferendis
+                temporibus sapiente, ea magni facere enim repellendus? Quo
+                dolores modi consectetur iste error? Cum saepe distinctio dolor
+                esse excepturi aliquid. Voluptatibus perferendis beatae sapiente
+                unde at laudantium harum voluptatum deserunt pariatur non.
+                Similique eaque exercitationem quas magni explicabo ducimus
+                animi provident. Vitae laborum quas voluptatibus sequi, aut fuga
+                doloribus ratione!
+              </p>
+            </article>
+
+            <article class="project-description">
+              <h2>AR Learning Environment</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
+                debitis nisi expedita nam quis. Aut doloremque harum cum quia
+                labore, nulla laudantium facilis nihil ullam quae neque
+                assumenda similique commodi! Adipisci harum assumenda molestias
+                culpa cum, distinctio accusantium, praesentium perferendis
+                temporibus sapiente, ea magni facere enim repellendus? Quo
+                dolores modi consectetur iste error? Cum saepe distinctio dolor
+                esse excepturi aliquid. Voluptatibus perferendis beatae sapiente
+                unde at laudantium harum voluptatum deserunt pariatur non.
+                Similique eaque exercitationem quas magni explicabo ducimus
+                animi provident. Vitae laborum quas voluptatibus sequi, aut fuga
+                doloribus ratione!
+              </p>
+            </article>
+
+            <a
+              href="https://www.ecshowcase.com/showcase.html"
+              target="_blank"
+              class="project-link"
+              >Visit Website</a
+            >
+          </div>
+        </div>
+      </section>
     </div>
-    <script src="https://kit.fontawesome.com/c43433e5df.js" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
-</body>
 
+    <!-- Scripts -->
+    <script
+      src="https://kit.fontawesome.com/c43433e5df.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="app.js"></script>
+  </body>
 </html>

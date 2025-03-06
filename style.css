@@ -1,3 +1,4 @@
+/* ---------- Base Styles ---------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -10,154 +11,157 @@ html {
 
 body {
     background-color: #f2f2f2;
-}
-
-.container {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-header {
-    height: 100dvh;
+/* ---------- Typography ---------- */
+h1, h2, h3 {
+    font-family: "Roboto Slab", serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ---------- Layout ---------- */
+.page-container {
     width: 100%;
     max-width: 100%;
+}
 
+/* ---------- Header ---------- */
+.site-header {
+    height: 100dvh;
+    width: 100%;
     display: grid;
-
     grid-template-rows: 96px 1fr;
 }
 
-header nav {
+/* ---------- Navigation ---------- */
+.main-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 10vw;
 }
 
-.work-status {
+.status-indicator {
     display: flex;
     flex-direction: row;
     gap: 0.8rem;
 }
 
-.work-status i {
+.status-indicator i {
     font-size: 2.4rem;
     padding-top: 0.4rem;
 }
 
-.work-text p {
+.status-text p {
     font-size: 1.6rem;
     color: #808080;
 }
 
-.work-text h3 {
+.status-text h3 {
     font-size: 1.8rem;
-    font-family: "Roboto Slab", serif;
     font-weight: 600;
 }
 
-.nav-links {
+.navigation-menu {
     display: flex;
-    text-decoration: none;
     list-style: none;
     gap: 4.8rem;
 }
 
-.nav-item {
+.menu-item {
     font-size: 1.6rem;
     cursor: pointer;
 }
 
-.hero {
+/* ---------- Hero Section ---------- */
+.hero-section {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.hero-text {
+.hero-content {
     text-align: center;
     margin-bottom: 2.4rem;
 }
 
-.hero-text h1 {
-    font-family: "Roboto Slab", serif;
-
+.hero-title {
     font-weight: bold;
     font-size: 4.8rem;
 }
 
-.hero-text p {
+.hero-subtitle {
     font-size: 1.6rem;
 }
 
-.hero-buttons {
+.hero-actions {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.6rem;
 }
 
-.primary-button {
-    padding: 1.2rem 2.4rem;
-    border: none;
+/* ---------- Buttons ---------- */
+.btn {
+    padding: 1.2rem 3.2rem;
     border-radius: 50px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
 
+.btn-primary {
     background-color: #121212;
     color: white;
-    cursor: pointer;
-    font-size: 1.6rem;
+    border: none;
 }
 
-.secondary-button {
-    padding: 1.2rem 2.4rem;
-    border-radius: 50px;
-
-    background-color: inherit;
+.btn-secondary {
+    background-color: transparent;
     border: solid 1px #121212;
-    font-size: 1.6rem;
-    cursor: pointer;
 }
 
-#work {
-    max-width: 100%;
+/* ---------- Portfolio Section ---------- */
+.portfolio {
     width: 100%;
-
     height: 100dvh;
     font-size: 1.6rem;
 }
 
-.title {
+.section-header {
     padding: 6.4rem 0;
     text-align: center;
 }
 
-.title p {
+.section-subtitle {
     font-size: 1.6rem;
     color: #808080;
 }
 
-.title h2 {
+.section-title {
     font-size: 2.4rem;
-    font-family: "Roboto Slab", serif;
 }
 
-.cards {
+/* ---------- Project Grid ---------- */
+.project-grid {
     width: 100%;
-    max-width: 100%;
-
     padding: 0 10vw;
     display: flex;
-
     justify-content: center;
     gap: 1.6rem;
 }
 
-.card {
+.project-card {
     height: 640px;
     width: 420px;
 }
 
-.card .bg {
+.project-content {
     background-color: #121212;
     width: 100%;
     height: 100%;
@@ -165,133 +169,105 @@ header nav {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform .2s;
+    transition: transform 0.2s;
 }
 
-.bg:hover {
-    transform: scale(1.02) perspective(0px);
-    box-shadow: 0 10px 10px rgba(0, 0, 0, .25);
+.project-content:hover {
+    transform: scale(1.02);
+    box-shadow: 0 16px 16px rgba(0, 0, 0, 0.25);
 }
 
-
-.git-link {
-    margin: 4.8rem 0;
-    text-align: center;
-}
-
-.git-link a {
-    text-decoration: none;
-}
-
-.git-link a:visited {
-    text-decoration: none;
-    color: black;
-}
-
-.git-link a:hover {
-    color: grey;
-}
-
-.visual {
+.project-visual {
     color: white;
     height: 100%;
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.visual img {
-    transform: scale(.55);
+.project-logo {
+    transform: scale(0.55);
 }
 
-#portfolio {
-    font-family: "Holtwood One SC", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 2.8rem;
-}
-
-#CDH {
-    font-family: "Space Mono", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.project-name {
     font-size: 2.4rem;
 }
 
-@keyframes bg_blur {
-    0% {backdrop-filter: blur(0px);}
-    100% {backdrop-filter: blur(10px);}
+/* Project-specific styles */
+#portfolio-project .project-name {
+    font-family: "Holtwood One SC", serif;
+    font-size: 2.8rem;
 }
 
-@keyframes bg_unblur {
-    0% {backdrop-filter: blur(10px);}
-    100% {backdrop-filter: blur(0px);}
+#cdh-project .project-name {
+    font-family: "Space Mono", monospace;
+    font-size: 2.4rem;
 }
 
-.case-study {
+/* ---------- GitHub Link ---------- */
+.github-link-container {
+    margin: 4.8rem 0;
+    text-align: center;
+}
+
+.github-link {
+    color: black;
+}
+
+.github-link:hover {
+    color: grey;
+}
+
+/* ---------- Project Details ---------- */
+.project-details {
     position: fixed;
-    overflow-y: scroll;
     inset: 0;
-    background-color: rgba(0, 0, 0, .75);
-    /* backdrop-filter: blur(10px); */
+    background-color: rgba(0, 0, 0, 0.75);
     width: 100%;
-    top: 0;
-    left: 0;
     z-index: 1000;
-    /* display: none */
+
+    display: none;
 }
 
 .no-scroll {
     overflow: hidden;
 }
 
-.case-content {
-    display: inline-block;
+.details-container {
     display: flex;
     flex-direction: column;
-    margin: 10vh 35vw 5vh 35vw;
+    margin: 0 32vw;
     color: white;
+    height: 100%;
+    position: relative;
+
 }
 
-.case-content h2 {
-    font-size: 1.8rem;
-    font-family: "Roboto Slab", serif;
-    margin: .8rem 0;
-    margin-top: 4.8rem;
-}
-
-.case-content p {
-    font-size: 1.6rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.case-content a {
-    margin: 1.6rem 0;
-    text-decoration: none;
-    color: white;
-    font-size: 1.6rem;
-    display: inline-block;
-    width: max-content;
-}
-
-.case-content a:hover {
-    color: lightskyblue;
-}
-
-.case-header {
-    margin-bottom: 2.4rem;
+.details-header {
     position: sticky;
     top: 0;
     width: 100%;
-    padding-top: 4.8rem;
-    backdrop-filter: blur(16px);
-
+    padding: 4.8rem 0;
+    margin-top: 6.4rem;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
+    z-index: 10;
+    background: transparent;
 }
 
-.close-button {
-    height: min-content;
-    padding: .8rem 2.4rem;
+.project-number {
+    font-family: "Space Mono", monospace;
+    font-size: 1.6rem;
+}
+
+.project-title {
+    font-size: 3.2rem;
+}
+
+.close-btn {
+    padding: 0.8rem 2.4rem;
     border-radius: 50px;
     background: none;
     border: solid 2px #ccc;
@@ -301,12 +277,49 @@ header nav {
     cursor: pointer;
 }
 
-.case-header p {
-    font-family: "Space Mono", serif;
+.details-content {
+    overflow-y: auto;
+    height: calc(100% - 4rem);
+    padding-right: 1.6rem;
+    margin-bottom: 5vh;
+}
+
+.details-content h2 {
+    font-size: 1.8rem;
+    margin: 0.8rem 0;
+    margin-top: 4.8rem;
+}
+
+#first-project-header {
+    margin-top: 0;
+}
+
+.details-content p {
     font-size: 1.6rem;
 }
 
-.case-header h1 {
-    font-family: "Roboto Slab", serif;
-    font-size: 3.2rem;
+.project-link {
+    margin: 1.6rem 0;
+    color: white;
+    font-size: 1.6rem;
+    display: inline-block;
+    width: max-content;
 }
+
+.project-link:hover {
+    color: lightskyblue;
+}
+
+/* ---------- Animations ---------- */
+@keyframes bg-blur {
+    0% { backdrop-filter: blur(0px); }
+    100% { backdrop-filter: blur(10px); }
+}
+
+@keyframes bg-unblur {
+    0% { backdrop-filter: blur(10px); }
+    100% { backdrop-filter: blur(0px); }
+}
+
+/* ---------- Media Queries ---------- */
+/* Would add responsive design here */
