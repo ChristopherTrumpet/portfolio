@@ -1,0 +1,32 @@
+---
+import Button from "./Button.astro";
+---
+
+<nav class="sticky w-dvw h-24 bg-transparent flex justify-center items-center flex-col">
+    <div class="navbar w-[80%] h-[65%] bg-white rounded-full border-zinc-300 border-1 grid grid-cols-[1fr_2fr_1fr] grid-rows-1 px-8">
+        <div class="flex items-center">
+            <h1 class="text-xl font-bold uppercase text-zinc-900">CT</h1>
+        </div>
+        <ul class="text-base flex justify-center items-center gap-4 text-zinc-400 line-through">
+            <li><a href="#">My Work</a></li>
+            <li><a href="#">My Photos</a></li>
+            <li><a href="#">My Food Blog</a></li>
+            <li><a href="#">My Life</a></li>
+        </ul >
+        <div class="flex items-center justify-end">
+            <Button label="View Resume" type="Secondary" />
+        </div>
+    </div>
+</nav>
+
+<script>
+    function growBar() {
+
+    }
+
+    function shrinkBar() {
+
+    }
+
+    const navbar = document.querySelector(".navbar");
+</script>
