@@ -1,0 +1,41 @@
+---
+import Button from "./Button.astro";
+import Grid from "./Grid.astro";
+import VisualGrid from "./VisualGrid.astro";
+---
+
+<header class="w-full h-dvh mt-16">
+  <Grid>
+    <div class="col-span-10 col-start-2">
+      <h1 class="font-serif text-5xl mb-2 -ml-[0.1em]">
+        Christopher Trumpet <span class="text-zinc-600">Jr.</span>
+      </h1>
+      <p class="text-zinc-600 mb-2">
+        kris • tuh • fir - 🎺 (very hard pronunciation)
+      </p>
+      <ol class="text-zinc-600 list-decimal ml-4 mb-4">
+        <li>A software developer</li>
+        <li>A student</li>
+        <li>A serial hobbyist</li>
+      </ol>
+      <div class="flex gap-4">
+        <Button variant="primary">View my work</Button>
+        <Button variant="secondary">Contact me</Button>
+      </div>
+    </div>
+    <div class="col-span-6 col-end-12 lg:col-span-4 lg:col-end-12">
+      <h3 class="font-mono font-bold uppercase mb-2">[ Welcome ]</h3>
+      <p>
+        I build things for the web, which you can explore in my work and
+        experiences. When I'm not coding, I'm usually committing culinary
+        experiments on my food blog or chasing moments with a camera in my photo
+        archive. And if you're curious about the person behind it all, my about
+        page has the rest of the story.
+      </p>
+    </div>
+  </Grid>
+  <VisualGrid />
+</header>
+
+
+

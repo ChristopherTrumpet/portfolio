@@ -1,0 +1,31 @@
+---
+import Button from "./Button.astro";
+import Grid from "./Grid.astro";
+
+
+---
+
+<div class="w-full bg-white">
+    <Grid>
+        <nav class="w-full h-fit col-span-12 flex justify-between mx-auto py-8">
+            <div class="flex items-center gap-4">
+                <a href="/"><span class="font-bold text-xl">CT</span></a>
+                <div class="hidden h-full gap-4 items-center">
+                    <div class="divider w-px bg-zinc-300 h-[50%] mt-[0.25em]"></div>
+                    <a href="/"><span class="text-zinc-600">Return to home page</span></a>
+                </div>
+            </div>
+            <div class="flex items-center gap-8">
+                <ul>
+                    <li><a href="#work">My Work</a></li>
+                </ul>
+                <a href="/src/documents/Resume.pdf" download="christopher_trumpet_resume">
+                    <Button variant="secondary" size="base">
+                        <img src="/src/icons/paperclip.svg" alt="Resume Icon">
+                        <span class="pb-[0.25em]">My Resume</span>
+                    </Button>
+                </a>
+            </div>
+        </nav>
+    </Grid>
+</div>
