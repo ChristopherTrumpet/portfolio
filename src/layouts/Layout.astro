@@ -10,10 +10,14 @@ import Navigation from "../components/Navigation.astro"
 		<meta name="generator" content={Astro.generator} />
 		<title>Christopher Trumpet</title>
 	</head>
-	<body>
-        <header>
-            <Navigation />
-        </header>
+	<body class="w-dvw min-h-[max(100dvh,_64rem)] overflow-hidden text-balance">
+		<Navigation />
 		<slot />
 	</body>
 </html>
+
+<style>
+	html {
+		scroll-behavior: smooth;
+	}
+</style>

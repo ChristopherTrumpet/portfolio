@@ -1,0 +1,70 @@
+---
+
+---
+
+<div class="grid-container absolute bottom-0">
+  <canvas id="perspective-grid" class="size-full"></canvas>
+</div>
+
+<style>
+  .grid-container 
+  {
+    width: 100%;
+    height: 20dvh;
+    pointer-events: none;
+    z-index: -1;
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById("perspective-grid") as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d');
+
+  function setCanvasDimensions() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drawGrid();
+  }
+
+  function drawGrid() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const horizon = 0;
+      const vanishingPointX = canvas.width / 2;
+
+      // Horizontal lines
+      const lineCount = 100;
+      const lineHeight = canvas.height;
+      const fixedAlpha = 0.5; // A fixed alpha to ensure all lines are visible
+      const strokeStyle = `rgba(128, 128, 128, ${fixedAlpha})`;
+
+      for (let i = 0; i < lineCount; i++) {
+          const y = horizon + (lineHeight - horizon) * (i / lineCount) ** 2;
+          ctx.strokeStyle = strokeStyle;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+      }
+
+      // Vertical lines - with a spread out vanishing point and fixed alpha
+      const verticalCount = 100;
+      const spreadFactor = canvas.width * 0.3;
+      for (let i = 0; i < verticalCount; i++) {
+          const percent = (i - verticalCount / 2) / (verticalCount / 2);
+          const startX = vanishingPointX + percent * spreadFactor;
+          const endX = vanishingPointX + percent * canvas.width * 0.7;
+          
+          ctx.strokeStyle = strokeStyle;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(startX, horizon);
+          ctx.lineTo(endX, canvas.height);
+          ctx.stroke();
+      }
+  }
+
+  window.addEventListener('resize', setCanvasDimensions);
+  setCanvasDimensions();
+</script>
