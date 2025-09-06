@@ -1,16 +1,82 @@
 ---
-interface Props {
-    label: string;
-    type: string;
-}
-
 const { 
-    label = "", 
-    type = ""
+  variant, 
+  size, 
+  iconSize, 
+  class: className, 
+  ...rest 
 } = Astro.props;
+
+const primaryClass = [
+  "inline-block",
+  "border-none",
+  "-bg-linear-225 from-[#2a241b] to-[#070707]",
+  "shadow-[inset_0_-2px_0_0_#010101,inset_0_0_1px_1px_#2B2B2B,0_1px_2px_1px_rgba(30,35,90,0.75)]",
+  "rounded-sm",
+  "text-white",
+  "height-2",
+  "text-center",
+  "py-2",
+  "px-4",
+  "font-semibold",
+  "text-base",
+  "cursor-pointer",
+];
+
+const secondaryClass = [
+  "inline-block",
+  "border-none",
+  "-bg-linear-225 from-[#d5dbe4] to-[#f8f8f8]",
+  "shadow-[inset_0_-2px_0_0_#cdcde6,inset_0_0_1px_1px_#fff,0_1px_2px_1px_rgba(30,35,90,0.4)]",
+  "rounded-sm",
+  "text-zinc-900",
+  "height-2",
+  "text-center",
+  "py-2",
+  "px-4",
+  "font-semibold",
+  "text-base",
+  "cursor-pointer",
+];
+
+const stitchedClass = [
+
+];
+
+const defaultClass = primaryClass;
+
+const sm = [];
+const md = [];
+const lg = [];
+const base = md;
+
+const additionalClasses = className ? className.split(" ") : [];
 ---
 
-<button class="px-8 py-3 rounded-full border-zinc-300 border-1 cursor-pointer">
-    <p class="text-sm font-semibold text-zinc-700">{ label }</p>
+<button
+  class:list={[
+    "flex",
+    "items-center",
+    "justify-center",
+    "transition-all",
+    "duration-300",
+    "focus:ring-2",
+    "focus:outline-none",
+    variant === "default" && defaultClass,
+    variant === "primary" && primaryClass,
+    variant === "secondary" && secondaryClass,
+    variant === "stitched" && stitchedClass,
+    size === "sm" && sm,
+    size === "md" && md,
+    size === "lg" && lg,
+    size === "base" && base,
+    ...additionalClasses,
+  ]}  
+  { ...rest }
+>
+  <div class="flex gap-3 items-center">
+    <slot name="left-icon" />
+    <slot />
+    <slot name="right-icon" />
+  </div>
 </button>
-

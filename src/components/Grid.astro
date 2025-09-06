@@ -1,0 +1,18 @@
+---
+interface Props {
+  columns?: string;
+}
+
+const { columns = "12" } = Astro.props;
+const gridCols = `grid-cols-${columns}`;
+---
+
+<div class:list={["grid", "gap-6", "lg:w-[75%]", "w-[90%]", "mx-auto", "grid-alignment"]}>
+ <slot />
+</div>
+
+<style>
+  .grid-alignment {
+    grid-template-columns: repeat(12, 1fr);
+  }
+</style>
