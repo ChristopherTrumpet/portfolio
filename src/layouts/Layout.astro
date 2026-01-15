@@ -1,0 +1,78 @@
+---
+import Divider from "../components/Divider.astro";
+import Footer from "../components/Footer.astro";
+import Sidebar from "../components/Sidebar.astro";
+import "../styles/global.css";
+
+interface Props {
+  includeSidebar: boolean;
+}
+
+const {includeSidebar} = Astro.props;
+
+const baseGridClasses = "grid grid-rows-[auto_16px_auto] grid-cols-1 h-auto max-w-full overflow-visible bg-[#eee] md:grid-rows-[1fr_auto] md:h-dvh md:overflow-hidden text-zinc-800";
+const layoutClasses = includeSidebar
+  ? "md:grid-cols-[1fr_16px_1fr] md:grid-rows-[1fr_auto]"
+  : "md:grid-rows-[1fr] md:grid-cols-1";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Christopher Trumpet</title>
+  </head>
+  <body>
+    <div class:list={[baseGridClasses, layoutClasses]}>
+      {includeSidebar && (
+        <aside
+          class="flex flex-col items-center justify-center h-full max-w-3xl px-6 pt-6 mx-auto"
+        >
+          <Sidebar />
+        </aside>
+        <Divider />
+      )}
+      
+      <main class="main-content">
+        <slot />
+      </main>
+
+      {includeSidebar && <Footer />}
+    </div>
+    <div id="grain-overlay" aria-hidden="true"></div>
+  </body>
+</html>
+
+<style>
+  html {
+    background-color: #eee;
+  }
+
+  .main-content {
+    overflow-y: visible;
+    height: auto;
+  }
+
+  @media (min-width: theme("screens.md")) {
+
+    .main-content {
+      overflow-y: auto;
+    }
+  }
+
+  #grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/grain.gif");
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 999;
+  }
+</style>

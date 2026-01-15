@@ -1,0 +1,23 @@
+---
+const { href, disabled } = Astro.props;
+---
+
+<li
+  class:list={[
+    "rounded-full px-5 py-3 flex-1 md:py-1.5 inline-block text-center cursor-pointer border-zinc-800 border shadow-[0_2px_0_0] shadow-zinc-800 hover:bg-white transition-all",
+    { disabled: disabled },
+  ]}
+>
+  <a
+    href={href}
+    class="flex items-center justify-center gap-2 leading-none capitalize"
+    ><slot /></a
+  >
+</li>
+
+<style>
+  .disabled {
+    opacity: 0.25;
+    pointer-events: none;
+  }
+</style>
