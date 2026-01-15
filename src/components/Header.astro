@@ -1,0 +1,11 @@
+---
+import Weather from "./Weather.astro";
+---
+
+<header class="flex justify-between">
+  <div class="flex items-center gap-4">
+    <Weather>
+      <div slot="fallback">Loading weather...</div>
+    </Weather>
+  </div>
+</header>

@@ -1,6 +1,7 @@
 ---
 import Divider from "../components/Divider.astro";
 import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import "../styles/global.css";
 
@@ -10,7 +11,7 @@ interface Props {
 
 const {includeSidebar} = Astro.props;
 
-const baseGridClasses = "grid grid-rows-[auto_16px_auto] grid-cols-1 h-auto max-w-full overflow-visible bg-[#eee] md:grid-rows-[1fr_auto] md:h-dvh md:overflow-hidden text-zinc-800";
+  const baseGridClasses = "grid grid-rows-[auto_16px_auto] grid-cols-1 h-auto max-w-full overflow-visible bg-[#eee] md:h-dvh md:overflow-hidden text-zinc-800";
 const layoutClasses = includeSidebar
   ? "md:grid-cols-[1fr_16px_1fr] md:grid-rows-[1fr_auto]"
   : "md:grid-rows-[1fr] md:grid-cols-1";
@@ -27,6 +28,8 @@ const layoutClasses = includeSidebar
   </head>
   <body>
     <div class:list={[baseGridClasses, layoutClasses]}>
+      <!-- {includeSidebar && <Header/>} -->
+
       {includeSidebar && (
         <aside
           class="flex flex-col items-center justify-center h-full max-w-3xl px-6 pt-6 mx-auto"
