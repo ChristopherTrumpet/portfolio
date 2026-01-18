@@ -12,8 +12,9 @@ const activeClasses = "bg-white translate-y-1 shadow-none";
 <li class="flex-1 inline-block">
   <a
     href={href}
+    draggable="false"
     class:list={[
-      "rounded-full flex items-center justify-center gap-2 py-3 px-5 md:py-1.5 leading-none capitalize text-center cursor-pointer border-zinc-800 shadow-zinc-800 border shadow-[0_4px_0_0] active:translate-y-1 active:shadow-none transition-all",
+      "rounded-full flex items-center justify-center gap-2 py-3 px-5 md:py-1.5 leading-none capitalize text-center cursor-pointer border-zinc-700 shadow-zinc-700 border shadow-[0_4px_0_0] active:translate-y-1 active:shadow-none transition-all",
       isActive ? activeClasses : hoveredClasses,
       { disabled: disabled },
     ]}><slot /></a
