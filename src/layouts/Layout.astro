@@ -39,7 +39,7 @@ const layoutClasses = includeSidebar
         <Divider />
       )}
       
-      <main class="main-content">
+      <main class="main-content md:row-span-2 md:col-start-3">
         <slot />
       </main>
 
@@ -56,6 +56,7 @@ const layoutClasses = includeSidebar
 
   .main-content {
     overflow-y: visible;
+    min-height: calc(100vh - 4rem);
     height: auto;
   }
 
@@ -63,6 +64,7 @@ const layoutClasses = includeSidebar
 
     .main-content {
       overflow-y: auto;
+      min-height: 100dvh;
     }
   }
 
