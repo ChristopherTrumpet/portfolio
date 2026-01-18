@@ -5,8 +5,10 @@ import Navigation from "./Navigation.astro";
 <section class="py-12 my-24 md:py-4 md:my-8">
   <div class="mb-6">
     <audio src="/trumpet-sfx.mp3" id="trumpet-sfx"></audio>
-    <h1 class="mb-4 text-3xl font-bold tracking-tight lowercase md:text-4xl">
-      Christopher Trumpet Jr. <button id="play-btn" class="cursor-pointer"
+    <h1 class="mb-5 text-5xl font-bold tracking-tight lowercase md:text-4xl">
+      <a href="/">Christopher Trumpet Jr.</a><button
+        id="play-btn"
+        class="cursor-pointer hover:scale-110 active:scale-90 transition-all"
         >🎺</button
       >
     </h1>
@@ -20,17 +22,82 @@ import Navigation from "./Navigation.astro";
 </section>
 
 <script>
-  const trumpetSfx = document.querySelector("#trumpet-sfx") as HTMLAudioElement;
-  const button = document.querySelector("#play-btn") as HTMLButtonElement;
+  /**
+   * Configuration for the randomization effect
+   */
+  interface RandomizationSettings {
+    pitchRange: number; // e.g., 0.1 for +/- 10%
+    volumeRange: number; // e.g., 0.2 for 80% to 100% volume
+  }
 
-  function play() {
-    if (trumpetSfx) {
-      trumpetSfx.load();
-      trumpetSfx.play();
+  class RandomizedAudio {
+    private url: string;
+    private audioCtx: AudioContext | null = null;
+    private buffer: AudioBuffer | null = null;
+
+    constructor(url: string) {
+      this.url = url;
+    }
+
+    /**
+     * Loads and decodes the audio file into a buffer.
+     */
+    async load(): Promise<void> {
+      if (!this.audioCtx) {
+        // Handles vendor prefixing for older browsers
+        const AudioContextClass =
+          window.AudioContext || (window as any).webkitAudioContext;
+        this.audioCtx = new AudioContextClass();
+      }
+
+      try {
+        const response = await fetch(this.url);
+        const arrayBuffer = await response.arrayBuffer();
+        this.buffer = await this.audioCtx.decodeAudioData(arrayBuffer);
+        console.log(`SFX Loaded: ${this.url}`);
+      } catch (error) {
+        console.error("Failed to load audio:", error);
+      }
+    }
+
+    play(
+      settings: RandomizationSettings = { pitchRange: 0.1, volumeRange: 0.2 },
+    ): void {
+      if (!this.audioCtx || !this.buffer) {
+        console.warn("Sound play called before loading was complete.");
+        return;
+      }
+
+      if (this.audioCtx.state === "suspended") {
+        this.audioCtx.resume();
+      }
+
+      const source: AudioBufferSourceNode = this.audioCtx.createBufferSource();
+      const gainNode: GainNode = this.audioCtx.createGain();
+
+      source.buffer = this.buffer;
+
+      const pitchShift = (Math.random() * 2 - 1) * settings.pitchRange;
+      source.playbackRate.value = 1.0 + pitchShift;
+
+      const volumeShift = Math.random() * settings.volumeRange;
+      gainNode.gain.value = 1.0 - volumeShift;
+
+      source.connect(gainNode);
+      gainNode.connect(this.audioCtx.destination);
+
+      source.start(0);
     }
   }
+  const sfx = new RandomizedAudio("/trumpet-sfx.mp3");
+  sfx.load();
 
-  if (button) {
-    button.addEventListener("click", play);
-  }
+  const btn = document.getElementById("play-btn") as HTMLButtonElement | null;
+
+  btn?.addEventListener("click", () => {
+    sfx.play({
+      pitchRange: 0.075,
+      volumeRange: 0.1,
+    });
+  });
 </script>
