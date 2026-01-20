@@ -1,0 +1,26 @@
+---
+import { db, Bookmark } from "astro:db";
+import BookmarkItem from "../components/BookmarkItem.astro";
+
+const bookmarks = await db.select().from(Bookmark);
+---
+
+<section class="flex flex-col h-full px-6 py-16 lg:py-0 lg:justify-center">
+  <h2 class="mb-4 font-serif text-2xl font-normal tracking-tight text-zinc-800">
+    what i've been reading / watching...
+  </h2>
+  {
+    bookmarks.map((b: any) => {
+      const formattedDate = (b.dateAdded as Date).toLocaleDateString("en-US");
+      return (
+        <BookmarkItem
+          title={b.title}
+          author={b.author}
+          date={formattedDate}
+          url={b.url}
+          comments={b.comments}
+        />
+      );
+    })
+  }
+</section>

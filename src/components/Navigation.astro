@@ -3,7 +3,7 @@ import NavigationButton from "./NavigationButton.astro";
 ---
 
 <nav class="navigation">
-  <ul class="flex flex-col gap-4 pt-2 md:flex-row md:pt-0">
+  <ul class="flex flex-col gap-4 pt-2 lg:flex-row md:pt-0 sm:flex-wrap">
     <NavigationButton href="#" disabled="true">
       <!-- <Icon name="tabler:message-circle" size={24} /> -->
       <svg
@@ -42,7 +42,7 @@ import NavigationButton from "./NavigationButton.astro";
       </svg>
       projects
     </NavigationButton>
-    <NavigationButton href="/archive">
+    <NavigationButton href="/archive" disabled="true">
       <!-- <Icon name="tabler:camera" size={24} /> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ import NavigationButton from "./NavigationButton.astro";
       </svg>
       archive
     </NavigationButton>
-    <NavigationButton href="#" disabled="true">
+    <NavigationButton href="/cooking" disabled="true">
       <!-- <Icon name="tabler:chef-hat" size={24} /> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"

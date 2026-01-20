@@ -1,30 +1,11 @@
 ---
-import Bookmark from "../components/Bookmark.astro";
-import BookmarkContainer from "../components/BookmarkContainer.astro";
-import Welcome from "../components/Welcome.astro";
+import BookmarkSection from "../components/BookmarkSection.astro";
 import Layout from "../layouts/Layout.astro";
 
-const url = Astro.url + "src/data/bookmarks.json";
-const bookmarks = await fetch(url).then((res) => res.json());
+// const url = Astro.url + "src/data/bookmarks.json";
+// const bookmarks = await fetch(url).then((res) => res.json());
 ---
 
 <Layout includeSidebar={true}>
-  <BookmarkContainer>
-    <h2 class="font-bold text-lg tracking-tight text-zinc-800 mb-4">
-      what i've been reading / watching...
-    </h2>
-    {
-      bookmarks.map((b: any) => {
-        return (
-          <Bookmark
-            title={b.title}
-            author={b.author}
-            date={b.dateAdded}
-            url={b.url}
-            comments={b.comments}
-          />
-        );
-      })
-    }
-  </BookmarkContainer>
+  <BookmarkSection server:defer />
 </Layout>

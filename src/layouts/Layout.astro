@@ -11,14 +11,17 @@ interface Props {
 
 const {includeSidebar} = Astro.props;
 
-  const baseGridClasses = "grid grid-rows-[auto_16px_auto] grid-cols-1 h-auto max-w-full overflow-visible bg-[#eee] md:h-dvh md:overflow-hidden text-zinc-800";
+const baseClasses = "min-h-dvh text-zinc-800 bg-[#eee]"
+
 const layoutClasses = includeSidebar
-  ? "md:grid-cols-[1fr_16px_1fr] md:grid-rows-[1fr_auto]"
-  : "md:grid-rows-[1fr] md:grid-cols-1";
+? "grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] grid-rows-[auto_1fr_auto] lg:h-dvh lg:overflow-hidden"
+  : "block h-auto overflow-y-auto";
+
+const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-auto w-full px-6";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-[#eee]">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -27,19 +30,17 @@ const layoutClasses = includeSidebar
     <title>Christopher Trumpet</title>
   </head>
   <body>
-    <div class:list={[baseGridClasses, layoutClasses]}>
-      <!-- {includeSidebar && <Header/>} -->
+    <div class:list={[baseClasses, layoutClasses]}>
+      {includeSidebar && <Header/>}
 
       {includeSidebar && (
-        <aside
-          class="flex flex-col items-center justify-center h-full max-w-2xl px-6 pt-6 mx-auto"
-        >
+        <aside class="flex flex-col items-center justify-center h-auto max-w-2xl col-start-1 row-start-2 px-6 mx-auto lg:h-full">
           <Sidebar />
         </aside>
         <Divider />
       )}
       
-      <main class="main-content md:row-span-2 md:col-start-3">
+      <main class:list={[includeSidebar && "min-h-[calc(100vh-4.5rem)] lg:col-start-3 lg:row-start-1 lg:row-span-3 lg:overflow-y-auto",widthLimit]}>
         <slot />
       </main>
 
@@ -50,23 +51,6 @@ const layoutClasses = includeSidebar
 </html>
 
 <style>
-  html {
-    background-color: #eee;
-  }
-
-  .main-content {
-    overflow-y: visible;
-    min-height: calc(100vh - 4rem);
-    height: auto;
-  }
-
-  @media (min-width: theme("screens.md")) {
-
-    .main-content {
-      overflow-y: auto;
-      min-height: 100dvh;
-    }
-  }
 
   #grain-overlay {
     position: fixed;
