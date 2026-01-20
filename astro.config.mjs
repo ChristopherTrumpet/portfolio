@@ -21,7 +21,5 @@ export default defineConfig({
 
   integrations: [react(), icon(), db()],
 
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: vercel()
 });
