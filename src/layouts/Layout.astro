@@ -20,8 +20,8 @@ const layoutClasses = includeSidebar
 const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-auto w-full px-6";
 ---
 
-<!doctype html>
-<html lang="en" class="bg-[#eee]">
+<!doctype html class="lg:bg-[url('../assets/grain.gif')]">
+<html lang="en" class="bg-[#eee] ios-fade">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -59,10 +59,19 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
     position: fixed;
     inset: -100px;
     
-    background: url("../assets/grain.gif");
+    background: linear-gradient(180deg,rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 10%, rgba(238, 238, 238, 0) 20%),
+    url("../assets/grain.gif");
     opacity: 0.06;
     mix-blend-mode: multiply;
     pointer-events: none;
     z-index: 9999;
   }
+
+  @media (min-width: 768px) {
+    html::after {
+      background: url("../assets/grain.gif");
+    }
+  }
+
+
 </style>
