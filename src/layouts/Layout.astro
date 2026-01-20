@@ -29,7 +29,7 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
     <meta name="generator" content={Astro.generator} />
     <title>Christopher Trumpet</title>
   </head>
-  <body class="min-h-[-webkit-fill-avaliable] min-h-vh">
+  <body class="min-h-[-webkit-fill-available] min-h-vh">
     <div class:list={[baseClasses, layoutClasses]}>
       {includeSidebar && <Header/>}
 
@@ -54,11 +54,10 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
 
   #grain-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    top: -50px;
+    left: -50px;
+    width: calc(100% + 100px);
+    height: calc(100vh + 100px);
     background: url("../assets/grain.gif");
     opacity: 0.06;
     mix-blend-mode: multiply;
