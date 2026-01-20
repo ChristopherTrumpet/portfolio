@@ -7,5 +7,9 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout includeSidebar={true}>
-  <BookmarkSection server:defer />
+  <BookmarkSection server:defer>
+    <div slot="fallback">
+      <p>Loading bookmarks...</p>
+    </div>
+  </BookmarkSection>
 </Layout>
