@@ -25,11 +25,12 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#eee" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>Christopher Trumpet</title>
   </head>
-  <body class="min-h-[-webkit-fill-available] min-h-vh">
+  <body class="min-h-[-webkit-fill-available] min-h-vh bg-transparent">
     <div class:list={[baseClasses, layoutClasses]}>
       {includeSidebar && <Header/>}
 
@@ -50,6 +51,9 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
 </html>
 
 <style is:global>
+  :root {
+    background-color: #eee;
+  }
   html::after {
     content: "";
     position: fixed;
