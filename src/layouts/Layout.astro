@@ -53,15 +53,18 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
 <style>
 
   #grain-overlay {
-    position: fixed;
-    top: -50px;
-    left: -50px;
-    width: calc(100% + 100px);
-    height: calc(100vh + 100px);
+  position: fixed;
+    top: -50vh;
+    left: -50vw;
+    width: 200vw;
+    height: 200vh;
+    
     background: url("../assets/grain.gif");
     opacity: 0.06;
     mix-blend-mode: multiply;
     pointer-events: none;
-    z-index: 999;
+    z-index: 9999;
+    
+    transform: translateZ(0);
   }
 </style>
