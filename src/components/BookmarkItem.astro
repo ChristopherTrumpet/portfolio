@@ -1,5 +1,14 @@
 ---
-const { title, author, date, url, comments } = Astro.props;
+interface Props {
+  title: string;
+  author: string;
+  dateAdded: Date;
+  url: string;
+  comments?: string;
+}
+
+const { title, author, dateAdded, url, comments } = Astro.props;
+const date = new Date(dateAdded).toLocaleDateString();
 ---
 
 <article
@@ -61,10 +70,7 @@ const { title, author, date, url, comments } = Astro.props;
     }
   </div>
   <p class="hidden text-zinc-600 ml-6.5 text-sm mt-2 comment">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti ea
-    dolorum praesentium in, nulla a qui numquam odit distinctio, molestiae
-    tempora illo ratione neque tempore, laborum consequuntur architecto
-    dignissimos saepe.
+    {comments}
   </p>
 </article>
 

@@ -7,8 +7,6 @@ import react from '@astrojs/react';
 
 import icon from 'astro-icon';
 
-import node from '@astrojs/node';
-
 import db from '@astrojs/db';
 
 import vercel from '@astrojs/vercel';
@@ -21,5 +19,5 @@ export default defineConfig({
 
   integrations: [react(), icon(), db()],
 
-  adapter: vercel()
+  adapter: vercel(),
 });
