@@ -5,6 +5,13 @@ import Navigation from "./Navigation.astro";
 <section class="py-12 my-18 lg:py-4 lg:my-6">
   <div class="mb-6">
     <audio src="/trumpet-sfx.mp3" id="trumpet-sfx"></audio>
+    <div class="mb-4">
+      <a
+        class="font-bold cursor-pointer tracking-tight hover:underline"
+        href="mailto:christopher.m.t.2005@gmail.com?subject=[Job%20Inquiry]%20<insert%20subject>"
+        >Currently for hire</a
+      >
+    </div>
     <h1
       class="mb-5 font-serif text-5xl font-normal tracking-tight lowercase lg:text-5xl"
     >
@@ -24,82 +31,54 @@ import Navigation from "./Navigation.astro";
 </section>
 
 <script>
-  /**
-   * Configuration for the randomization effect
-   */
-  interface RandomizationSettings {
-    pitchRange: number; // e.g., 0.1 for +/- 10%
-    volumeRange: number; // e.g., 0.2 for 80% to 100% volume
-  }
+  let rawAudioData: ArrayBuffer | null = null;
+  let audioBuffer: AudioBuffer | null = null;
+  let audioCtx: AudioContext | null = null;
 
-  class RandomizedAudio {
-    private url: string;
-    private audioCtx: AudioContext | null = null;
-    private buffer: AudioBuffer | null = null;
+  const SFX_URL = "/trumpet-sfx.mp3";
 
-    constructor(url: string) {
-      this.url = url;
-    }
-
-    /**
-     * Loads and decodes the audio file into a buffer.
-     */
-    async load(): Promise<void> {
-      if (!this.audioCtx) {
-        // Handles vendor prefixing for older browsers
-        const AudioContextClass =
-          window.AudioContext || (window as any).webkitAudioContext;
-        this.audioCtx = new AudioContextClass();
-      }
-
-      try {
-        const response = await fetch(this.url);
-        const arrayBuffer = await response.arrayBuffer();
-        this.buffer = await this.audioCtx.decodeAudioData(arrayBuffer);
-        console.log(`SFX Loaded: ${this.url}`);
-      } catch (error) {
-        console.error("Failed to load audio:", error);
-      }
-    }
-
-    play(
-      settings: RandomizationSettings = { pitchRange: 0.1, volumeRange: 0.2 },
-    ): void {
-      if (!this.audioCtx || !this.buffer) {
-        console.warn("Sound play called before loading was complete.");
-        return;
-      }
-
-      if (this.audioCtx.state === "suspended") {
-        this.audioCtx.resume();
-      }
-
-      const source: AudioBufferSourceNode = this.audioCtx.createBufferSource();
-      const gainNode: GainNode = this.audioCtx.createGain();
-
-      source.buffer = this.buffer;
-
-      const pitchShift = (Math.random() * 2 - 1) * settings.pitchRange;
-      source.playbackRate.value = 1.0 + pitchShift;
-
-      const volumeShift = Math.random() * settings.volumeRange;
-      gainNode.gain.value = 1.0 - volumeShift;
-
-      source.connect(gainNode);
-      gainNode.connect(this.audioCtx.destination);
-
-      source.start(0);
+  async function preloadFile() {
+    try {
+      const response = await fetch(SFX_URL);
+      rawAudioData = await response.arrayBuffer();
+    } catch (err) {
+      console.error("Failed to download audio file:", err);
     }
   }
-  const sfx = new RandomizedAudio("/trumpet-sfx.mp3");
-  sfx.load();
 
-  const btn = document.getElementById("play-btn") as HTMLButtonElement | null;
+  async function handlePlayClick() {
+    if (!rawAudioData) return;
 
-  btn?.addEventListener("click", () => {
-    sfx.play({
-      pitchRange: 0.075,
-      volumeRange: 0.1,
-    });
-  });
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.AudioContext)();
+    }
+
+    if (!audioBuffer) {
+      audioBuffer = await audioCtx.decodeAudioData(rawAudioData);
+    }
+
+    if (audioCtx.state === "suspended") {
+      await audioCtx.resume();
+    }
+
+    const source = audioCtx.createBufferSource();
+    const gainNode = audioCtx.createGain();
+
+    source.buffer = audioBuffer;
+
+    const pitchRange = 0.075;
+    const volumeRange = 0.1;
+    source.playbackRate.value = 1.0 + (Math.random() * 2 - 1) * pitchRange;
+    gainNode.gain.value = 1.0 - Math.random() * volumeRange;
+
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    source.start(0);
+  }
+
+  preloadFile();
+
+  document
+    .getElementById("play-btn")
+    ?.addEventListener("click", handlePlayClick);
 </script>
