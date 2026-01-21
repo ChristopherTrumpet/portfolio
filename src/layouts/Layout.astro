@@ -17,7 +17,7 @@ const layoutClasses = includeSidebar
 ? "grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] grid-rows-[auto_1fr_auto] lg:h-dvh lg:overflow-hidden"
   : "block h-auto overflow-y-auto";
 
-const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-auto w-full px-6";
+const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "w-full px-6";
 ---
 
 <!doctype html>
@@ -35,7 +35,7 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
       {includeSidebar && <Header/>}
 
       {includeSidebar && (
-        <aside class="flex flex-col items-center justify-center h-auto max-w-2xl col-start-1 row-start-2 px-6 mx-auto lg:h-full">
+        <aside class="flex flex-col justify-center h-auto max-w-2xl col-start-1 row-start-2 px-6 mx-auto lg:h-full">
           <Sidebar />
         </aside>
         <Divider />
@@ -55,17 +55,20 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
     background-color: #eee;
   }
 
-  html::after {
+  html::before {
     content: "";
     position: fixed;
-      inset: -100px;
+    inset: -100px;
+    background: url("../assets/grain.gif");
     
-    background: linear-gradient(180deg,rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 0.75) 15%, rgba(238, 238, 238, 0) 30%),
-    url("../assets/grain.gif");
     opacity: 0.06;
     mix-blend-mode: multiply;
-    pointer-events: none;
+
+    -webkit-mask-image: linear-gradient(180deg, transparent 8%, black 30%, black 75%, transparent 92%);
+    mask-image: linear-gradient(180deg, transparent 8%, black 30%, black 75%, transparent 92%);
+
     z-index: 9999;
+    pointer-events: none;
   }
 
   body {
@@ -74,8 +77,10 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
   }
 
   @media (min-width: 768px) {
-    html::after {
+    html::before {
       background: url("../assets/grain.gif");
+      -webkit-mask-image: linear-gradient(180deg, transparent 3%, black 16%, black 90%, transparent 95%);
+      mask-image: linear-gradient(180deg, transparent 3%, black 16%, black 90%, transparent 95%);
     }
   }
 
