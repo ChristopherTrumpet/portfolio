@@ -20,8 +20,8 @@ const layoutClasses = includeSidebar
 const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-auto w-full px-6";
 ---
 
-<!doctype html class="lg:bg-[url('../assets/grain.gif')]">
-<html lang="en" class="bg-[#eee] ios-fade">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -30,7 +30,7 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
     <meta name="generator" content={Astro.generator} />
     <title>Christopher Trumpet</title>
   </head>
-  <body class="min-h-[-webkit-fill-available] min-h-vh bg-transparent">
+  <body>
     <div class:list={[baseClasses, layoutClasses]}>
       {includeSidebar && <Header/>}
 
@@ -51,20 +51,26 @@ const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "max-w-4xl mx-a
 </html>
 
 <style is:global>
-  :root {
+  :root, html {
     background-color: #eee;
   }
+
   html::after {
     content: "";
     position: fixed;
-    inset: -100px;
+      inset: -100px;
     
-    background: linear-gradient(180deg,rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 10%, rgba(238, 238, 238, 0) 20%),
+    background: linear-gradient(180deg,rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 0.75) 15%, rgba(238, 238, 238, 0) 30%),
     url("../assets/grain.gif");
     opacity: 0.06;
     mix-blend-mode: multiply;
     pointer-events: none;
     z-index: 9999;
+  }
+
+  body {
+    position: relative;
+    min-height: 100vh;
   }
 
   @media (min-width: 768px) {
