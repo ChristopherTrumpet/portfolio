@@ -27,41 +27,56 @@ const bookmarks = await response.json();
 
 <style>
   .dynamic-mask {
-    --mask-end: transparent;
-    --mask-stop: 80%;
+    --mask-top: black;
+    --mask-top-stop: 0%;
+    --mask-bottom-stop: 100%;
+    --mask-bottom: black;
 
     mask-image: linear-gradient(
       to bottom,
-      black 0%,
-      black var(--mask-stop),
-      var(--mask-end) 100%
+      var(--mask-top) 0%,
+      black var(--mask-top-stop),
+      black var(--mask-bottom-stop),
+      var(--mask-bottom) 100%
     );
     -webkit-mask-image: linear-gradient(
       to bottom,
-      black 0%,
-      black var(--mask-stop),
-      var(--mask-end) 100%
+      var(--mask-top) 0%,
+      black var(--mask-top-stop),
+      black var(--mask-bottom-stop),
+      var(--mask-bottom) 100%
     );
 
-    transition:
-      --mask-stop 0.3s,
-      --mask-end 0.3s;
+    transition: all 0.3s ease;
   }
 </style>
 
 <script>
   const updateMask = (el: HTMLElement) => {
-    const isScrollable = el.scrollHeight > el.clientHeight;
-    const isAtBottom = el.scrollHeight - el.scrollTop <= el.clientHeight + 1;
+    const scrollTop = el.scrollTop;
+    const scrollHeight = el.scrollHeight;
+    const clientHeight = el.clientHeight;
 
-    if (!isScrollable || isAtBottom) {
-      // Remove the fade: Make the stop 100% and the end black
-      el.style.setProperty("--mask-stop", "100%");
-      el.style.setProperty("--mask-end", "black");
+    const isScrollable = scrollHeight > clientHeight;
+    const isAtTop = scrollTop <= 0;
+    const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+
+    // Top mask
+    if (!isScrollable || isAtTop) {
+      el.style.setProperty("--mask-top", "black");
+      el.style.setProperty("--mask-top-stop", "0%");
     } else {
-      // Restore the fade
-      el.style.setProperty("--mask-stop", "80%");
-      el.style.setProperty("--mask-end", "transparent");
+      el.style.setProperty("--mask-top", "transparent");
+      el.style.setProperty("--mask-top-stop", "20%");
+    }
+
+    // Bottom mask
+    if (!isScrollable || isAtBottom) {
+      el.style.setProperty("--mask-bottom", "black");
+      el.style.setProperty("--mask-bottom-stop", "100%");
+    } else {
+      el.style.setProperty("--mask-bottom", "transparent");
+      el.style.setProperty("--mask-bottom-stop", "80%");
     }
   };
 
@@ -70,9 +85,12 @@ const bookmarks = await response.json();
   if (container) {
     container.addEventListener("scroll", () => updateMask(container));
 
-    // Check on load (in case the list is already short)
+    // Check on load and resize
     updateMask(container);
-
     window.addEventListener("resize", () => updateMask(container));
+
+    // MutationObserver handles cases where content loads late
+    const observer = new MutationObserver(() => updateMask(container));
+    observer.observe(container, { childList: true });
   }
 </script>

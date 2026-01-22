@@ -25,7 +25,7 @@ const date = new Date(dateAdded).toLocaleDateString();
 ---
 
 <article
-  class="first:border-t last:border-b py-4 border-zinc-300 text-zinc-800"
+  class="bookmark-item first:border-t last:border-b py-4 border-zinc-300 text-zinc-800"
 >
   <div class="flex items-center justify-between">
     <div class="flex min-w-0 gap-2">
@@ -57,8 +57,8 @@ const date = new Date(dateAdded).toLocaleDateString();
     {
       comments && (
         <button
-          class="pl-2 ml-2 transition-all cursor-pointer shrink-0 hover:text-zinc-600 hover:scale-110"
-          id="comments-btn"
+          class="comment-toggle pl-2 ml-2 transition-all cursor-pointer shrink-0 hover:text-zinc-600 hover:scale-110"
+          aria-label="Toggle comment"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -79,9 +79,13 @@ const date = new Date(dateAdded).toLocaleDateString();
       )
     }
   </div>
-  <p class="hidden text-zinc-600 ml-6.5 text-sm mt-2 comment">
-    {comments}
-  </p>
+  {
+    comments && (
+      <p class="comment-content hidden text-zinc-600 ml-6.5 text-sm mt-2">
+        {comments}
+      </p>
+    )
+  }
 </article>
 
 <style>
@@ -91,11 +95,14 @@ const date = new Date(dateAdded).toLocaleDateString();
 </style>
 
 <script>
-  const btn: HTMLButtonElement | null = document.querySelector("#comments-btn");
-  const commentParagraph: HTMLParagraphElement | null =
-    document.querySelector(".comment");
+  const bookmarks = document.querySelectorAll(".bookmark-item");
 
-  btn?.addEventListener("click", () => {
-    commentParagraph?.classList.toggle("hidden");
+  bookmarks.forEach((bookmark) => {
+    const btn = bookmark.querySelector(".comment-toggle");
+    const content = bookmark.querySelector(".comment-content");
+
+    btn?.addEventListener("click", () => {
+      content?.classList.toggle("hidden");
+    });
   });
 </script>
