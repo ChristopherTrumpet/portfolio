@@ -5,9 +5,22 @@ interface Props {
   dateAdded: Date;
   url: string;
   comments?: string;
+  type: "video" | "article" | "blog" | "academic";
 }
 
-const { title, author, dateAdded, url, comments } = Astro.props;
+const { title, author, dateAdded, url, comments, type } = Astro.props;
+
+const iconMap = {
+  video:
+    '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14zM3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>',
+  article:
+    '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm4 2h10M7 12h10M7 16h10" />',
+  blog: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm4 2h10M7 12h10M7 16h10" />',
+  academic:
+    '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M22 9L12 5L2 9l10 4zv6" /><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4" /></g>',
+};
+
+const currentIcon = iconMap[type] || iconMap.article;
 const date = new Date(dateAdded).toLocaleDateString();
 ---
 
@@ -21,17 +34,14 @@ const date = new Date(dateAdded).toLocaleDateString();
         width="18"
         height="18"
         viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
         class="mt-[0.175rem] shrink-0"
-      >
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="m15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14zM3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-        ></path>
-      </svg>
+        set:html={currentIcon}
+      />
 
       <div class="min-w-0">
         <h3
