@@ -2,7 +2,11 @@
 import { API_URL } from "astro:env/server";
 import BookmarkItem from "../components/BookmarkItem.astro";
 
-const response = await fetch(`${API_URL}/bookmarks`);
+const response = await fetch(`${API_URL}/bookmarks`, {
+  headers: {
+    "User-Agent": "portfolio/1.0 (internal-fetch)",
+  },
+});
 const bookmarks = await response.json();
 ---
 
