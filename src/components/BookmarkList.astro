@@ -3,21 +3,76 @@ import { API_URL } from "astro:env/server";
 import BookmarkItem from "../components/BookmarkItem.astro";
 
 const response = await fetch(`${API_URL}/bookmarks`, {
-  headers: {
-    "User-Agent": "portfolio/1.0 (internal-fetch)",
-  },
+  headers: { "User-Agent": "portfolio/1.0 (internal-fetch)" },
 });
 const bookmarks = await response.json();
 ---
 
 <section class="flex flex-col h-full px-6 py-16 lg:py-0 lg:justify-center">
-  <h2
-    class="mb-4 font-serif text-xl lg:text-2xl font-normal tracking-tight text-zinc-800"
-  >
-    what i've been reading / watching...
-  </h2>
+  <div class="w-full max-w-2xl mx-auto">
+    <h2
+      class="mb-4 font-serif text-xl lg:text-2xl font-normal tracking-tight text-zinc-800"
+    >
+      what i've been reading / watching...
+    </h2>
 
-  <div class="border-zinc-300 divide-y divide-zinc-300">
-    {bookmarks.map((b: any) => <BookmarkItem {...b} />)}
+    <div
+      id="bookmark-list"
+      class="dynamic-mask border-zinc-300 divide-y divide-zinc-300 max-h-[65vh] overflow-y-auto pr-6"
+    >
+      {bookmarks.map((b: any) => <BookmarkItem {...b} />)}
+    </div>
   </div>
 </section>
+
+<style>
+  .dynamic-mask {
+    --mask-end: transparent;
+    --mask-stop: 80%;
+
+    mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black var(--mask-stop),
+      var(--mask-end) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black var(--mask-stop),
+      var(--mask-end) 100%
+    );
+
+    transition:
+      --mask-stop 0.3s,
+      --mask-end 0.3s;
+  }
+</style>
+
+<script>
+  const updateMask = (el: HTMLElement) => {
+    const isScrollable = el.scrollHeight > el.clientHeight;
+    const isAtBottom = el.scrollHeight - el.scrollTop <= el.clientHeight + 1;
+
+    if (!isScrollable || isAtBottom) {
+      // Remove the fade: Make the stop 100% and the end black
+      el.style.setProperty("--mask-stop", "100%");
+      el.style.setProperty("--mask-end", "black");
+    } else {
+      // Restore the fade
+      el.style.setProperty("--mask-stop", "80%");
+      el.style.setProperty("--mask-end", "transparent");
+    }
+  };
+
+  const container = document.getElementById("bookmark-list");
+
+  if (container) {
+    container.addEventListener("scroll", () => updateMask(container));
+
+    // Check on load (in case the list is already short)
+    updateMask(container);
+
+    window.addEventListener("resize", () => updateMask(container));
+  }
+</script>
