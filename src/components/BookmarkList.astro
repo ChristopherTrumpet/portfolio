@@ -7,7 +7,9 @@ import BookmarkItem from "../components/BookmarkItem.astro";
 const bookmarks = await db.select().from(Bookmark);
 ---
 
-<section class="flex flex-col h-full px-6 py-16 lg:py-0 lg:justify-center">
+<section
+  class="flex flex-col h-full px-4 lg:px-6 py-16 lg:py-0 lg:justify-center"
+>
   <h2
     class="mb-4 font-serif text-xl lg:text-2xl font-normal tracking-tight text-zinc-800"
   >

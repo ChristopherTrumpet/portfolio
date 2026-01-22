@@ -2,7 +2,7 @@
 import Weather from "./Weather.astro";
 ---
 
-<header class="flex justify-between w-full p-6">
+<header class="flex justify-between w-full py-6 px-4 lg:p-6">
   <div class="flex items-center gap-4">
     <Weather server:defer>
       <div slot="fallback">Loading weather...</div>

@@ -34,7 +34,7 @@ const sidebarGrid =
       {
         hasSidebar ? (
           <>
-            <div class="flex flex-col max-w-2xl row-start-1 px-4 mx-auto lg:px-0 lg:col-start-1 min-d-dvh">
+            <div class="flex flex-col max-w-2xl row-start-1 mx-auto lg:col-start-1 min-d-dvh">
               <Sidebar classList="grow" />
             </div>
 
@@ -44,7 +44,7 @@ const sidebarGrid =
 
             <main class="w-full h-full max-w-2xl row-start-3 mx-auto lg:col-start-3 lg:row-span-full">
               <slot />
-              <div class="px-4 lg:hidden">
+              <div class="lg:hidden">
                 <Footer />
               </div>
             </main>
