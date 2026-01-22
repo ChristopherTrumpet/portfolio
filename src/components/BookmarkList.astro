@@ -18,7 +18,7 @@ const bookmarks = await response.json();
 
     <div
       id="bookmark-list"
-      class="dynamic-mask border-zinc-300 divide-y divide-zinc-300 max-h-[65vh] overflow-y-auto pr-6"
+      class="dynamic-mask border-zinc-300 divide-y divide-zinc-300 max-h-[65vh] overflow-y-auto pr-3"
     >
       {bookmarks.map((b: any) => <BookmarkItem {...b} />)}
     </div>
@@ -27,70 +27,81 @@ const bookmarks = await response.json();
 
 <style>
   .dynamic-mask {
-    --mask-top: black;
+    will-change:
+      mask-image,
+      -webkit-mask-image;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    --mask-top-color: black;
     --mask-top-stop: 0%;
     --mask-bottom-stop: 100%;
-    --mask-bottom: black;
+    --mask-bottom-color: black;
 
     mask-image: linear-gradient(
       to bottom,
-      var(--mask-top) 0%,
+      var(--mask-top-color) 0%,
       black var(--mask-top-stop),
       black var(--mask-bottom-stop),
-      var(--mask-bottom) 100%
+      var(--mask-bottom-color) 100%
     );
     -webkit-mask-image: linear-gradient(
       to bottom,
-      var(--mask-top) 0%,
+      var(--mask-top-color) 0%,
       black var(--mask-top-stop),
       black var(--mask-bottom-stop),
-      var(--mask-bottom) 100%
+      var(--mask-bottom-color) 100%
     );
 
-    transition: all 0.3s ease;
+    transition:
+      --mask-top-stop 0.2s ease,
+      --mask-bottom-stop 0.2s ease,
+      --mask-top-color 0.2s ease,
+      --mask-bottom-color 0.2s ease;
   }
 </style>
 
 <script>
   const updateMask = (el: HTMLElement) => {
-    const scrollTop = el.scrollTop;
-    const scrollHeight = el.scrollHeight;
-    const clientHeight = el.clientHeight;
+    requestAnimationFrame(() => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
 
-    const isScrollable = scrollHeight > clientHeight;
-    const isAtTop = scrollTop <= 0;
-    const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+      const isScrollable = scrollHeight > clientHeight;
+      const isAtTop = scrollTop <= 2;
+      const isAtBottom =
+        Math.ceil(scrollTop + clientHeight) >= scrollHeight - 2;
 
-    // Top mask
-    if (!isScrollable || isAtTop) {
-      el.style.setProperty("--mask-top", "black");
-      el.style.setProperty("--mask-top-stop", "0%");
-    } else {
-      el.style.setProperty("--mask-top", "transparent");
-      el.style.setProperty("--mask-top-stop", "20%");
-    }
+      // Top mask
+      if (!isScrollable || isAtTop) {
+        el.style.setProperty("--mask-top-color", "black");
+        el.style.setProperty("--mask-top-stop", "0%");
+      } else {
+        el.style.setProperty("--mask-top-color", "transparent");
+        el.style.setProperty("--mask-top-stop", "12%");
+      }
 
-    // Bottom mask
-    if (!isScrollable || isAtBottom) {
-      el.style.setProperty("--mask-bottom", "black");
-      el.style.setProperty("--mask-bottom-stop", "100%");
-    } else {
-      el.style.setProperty("--mask-bottom", "transparent");
-      el.style.setProperty("--mask-bottom-stop", "80%");
-    }
+      // Bottom mask
+      if (!isScrollable || isAtBottom) {
+        el.style.setProperty("--mask-bottom-color", "black");
+        el.style.setProperty("--mask-bottom-stop", "100%");
+      } else {
+        el.style.setProperty("--mask-bottom-color", "transparent");
+        el.style.setProperty("--mask-bottom-stop", "88%");
+      }
+    });
   };
 
   const container = document.getElementById("bookmark-list");
 
   if (container) {
-    container.addEventListener("scroll", () => updateMask(container));
+    container.addEventListener("scroll", () => updateMask(container), {
+      passive: true,
+    });
+    container.addEventListener("touchmove", () => updateMask(container), {
+      passive: true,
+    });
 
-    // Check on load and resize
     updateMask(container);
     window.addEventListener("resize", () => updateMask(container));
-
-    // MutationObserver handles cases where content loads late
-    const observer = new MutationObserver(() => updateMask(container));
-    observer.observe(container, { childList: true });
   }
 </script>
