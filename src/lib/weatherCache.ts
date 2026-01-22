@@ -1,4 +1,3 @@
-
 import { fetchWeatherApi } from "openmeteo";
 
 interface WeatherObject {
@@ -21,13 +20,12 @@ const params = {
 const url = "https://api.open-meteo.com/v1/forecast";
 
 let weather: WeatherObject | null = null;
-const INTERVAL = 15 * 60 * 1000 // 15 Minutes
+const INTERVAL = 15 * 60 * 1000; // 15 Minutes
 
 export async function getWeather() {
   const now = Date.now();
 
   if (weather && now - weather.last_fetched < INTERVAL) {
-    console.log("Using cached weather");
     return weather;
   }
 
@@ -37,18 +35,16 @@ export async function getWeather() {
     const current = response.current();
 
     weather = {
-        temperature_2m: Math.round(current!.variables(0)!.value()),
-        rain: current!.variables(1)!.value(),
-        snowfall: current!.variables(2)!.value(),
-        cloud_cover: current!.variables(3)!.value(),
-        is_day: current!.variables(4)!.value(),
-        last_fetched: now
-    }
-
-    console.log("Fresh refresh");
+      temperature_2m: Math.round(current!.variables(0)!.value()),
+      rain: current!.variables(1)!.value(),
+      snowfall: current!.variables(2)!.value(),
+      cloud_cover: current!.variables(3)!.value(),
+      is_day: current!.variables(4)!.value(),
+      last_fetched: now,
+    };
 
     return weather;
-  } catch(error) {
+  } catch (error) {
     console.error("Unable to fetch weather data.", error);
     return weather;
   }

@@ -2,9 +2,7 @@
 import Weather from "./Weather.astro";
 ---
 
-<header
-  class="flex justify-between w-full max-w-2xl col-start-1 row-start-1 px-6 pt-6 mx-auto"
->
+<header class="flex justify-between w-full p-6">
   <div class="flex items-center gap-4">
     <Weather server:defer>
       <div slot="fallback">Loading weather...</div>
@@ -12,7 +10,7 @@ import Weather from "./Weather.astro";
   </div>
   <a
     href="/Christopher_Trumpet.pdf"
-    class="px-6 py-2 bg-transparent text-zinc-800 items-center justify-center rounded-full border border-zinc-800 tracking-tight font-semibold text-sm hover:bg-zinc-800 hover:text-white transition-all"
+    class="items-center justify-center px-6 py-2 text-sm font-semibold tracking-tight transition-all bg-transparent border rounded-full text-zinc-800 border-zinc-800 hover:bg-zinc-800 hover:text-white"
     >View Resumé</a
   >
 </header>

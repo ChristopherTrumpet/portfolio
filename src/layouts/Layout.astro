@@ -1,88 +1,62 @@
 ---
 import Divider from "../components/Divider.astro";
 import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import "../styles/global.css";
 
 interface Props {
-  includeSidebar: boolean;
+  title?: string;
+  hasSidebar?: boolean;
 }
 
-const {includeSidebar} = Astro.props;
+const { title = "Christopher Trumpet", hasSidebar = false } = Astro.props;
 
-const baseClasses = "min-h-dvh text-zinc-800 bg-[#eee]"
-
-const layoutClasses = includeSidebar
-? "grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] grid-rows-[auto_1fr_auto] lg:h-dvh lg:overflow-hidden"
-  : "block h-auto overflow-y-auto";
-
-const widthLimit = includeSidebar ? "max-w-2xl mx-auto w-full" : "w-full px-6";
+const baseClasses = "min-h-dvh w-full";
+const sidebarGrid =
+  "grid grid-cols-1 grid-rows-[1fr_auto_1fr] lg:grid-cols-[1fr_auto_1fr] lg:grid-rows-1";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <meta name="theme-color" content="#eee" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Christopher Trumpet</title>
+    <title>{title}</title>
   </head>
-  <body>
-    <div class:list={[baseClasses, layoutClasses]}>
-      {includeSidebar && <Header/>}
+  <body class="bg-[#eee]">
+    <div class:list={[baseClasses, hasSidebar && sidebarGrid]}>
+      {
+        hasSidebar ? (
+          <>
+            <div class="flex flex-col max-w-2xl row-start-1 px-4 mx-auto lg:px-0 lg:col-start-1 min-d-dvh">
+              <Sidebar classList="grow" />
+            </div>
 
-      {includeSidebar && (
-        <aside class="flex flex-col justify-center h-auto max-w-2xl col-start-1 row-start-2 px-6 mx-auto lg:h-full">
-          <Sidebar />
-        </aside>
-        <Divider />
-      )}
-      
-      <main class:list={[includeSidebar && "min-h-[calc(100vh-4.5rem)] lg:col-start-3 lg:row-start-1 lg:row-span-3 lg:overflow-y-auto",widthLimit]}>
-        <slot />
-      </main>
+            <div class="row-start-2 lg:col-start-2 lg:row-start-1">
+              <Divider />
+            </div>
 
-      {includeSidebar && <Footer />}
+            <main class="w-full h-full max-w-2xl row-start-3 mx-auto lg:col-start-3 lg:row-span-full">
+              <slot />
+              <div class="px-4 lg:hidden">
+                <Footer />
+              </div>
+            </main>
+          </>
+        ) : (
+          <div class="flex flex-col lg:min-h-dvh">
+            <main class="lg:grow">
+              <slot />
+            </main>
+          </div>
+        )
+      }
     </div>
   </body>
 </html>
-
-<style is:global>
-  :root, html {
-    background-color: #eee;
-  }
-
-  html::before {
-    content: "";
-    position: fixed;
-    inset: -100px;
-    background: url("../assets/grain.gif");
-    
-    opacity: 0.04;
-    mix-blend-mode: multiply;
-
-    -webkit-mask-image: linear-gradient(180deg, transparent 8%, black 30%, black 75%, transparent 92%);
-    mask-image: linear-gradient(180deg, transparent 8%, black 30%, black 75%, transparent 92%);
-
-    z-index: 9999;
-    pointer-events: none;
-  }
-
-  body {
-    position: relative;
-    min-height: 100vh;
-  }
-
-  @media (min-width: 768px) {
-    html::before {
-      background: url("../assets/grain.gif");
-      -webkit-mask-image: linear-gradient(180deg, transparent 3%, black 16%, black 90%, transparent 95%);
-      mask-image: linear-gradient(180deg, transparent 3%, black 16%, black 90%, transparent 95%);
-    }
-  }
-
-
-</style>

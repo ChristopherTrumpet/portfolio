@@ -5,22 +5,21 @@ const weather = await getWeather();
 
 let state = "";
 if (weather?.is_day) {
-  state = "☀️ Day";
+  state = "☀️";
 } else if (!weather?.is_day) {
-  state = "🛏️ Night";
+  state = "🛏️";
 } else if (weather?.cloud_cover > 80) {
-  state = "☁️ Cloudy";
+  state = "☁️";
 } else if (weather?.rain > 50) {
-  state = "🌧️ Rainy";
+  state = "🌧️";
 } else if (weather?.snowfall > 50) {
-  state = "🌨️ Snowing";
+  state = "🌨️";
 }
 ---
 
 <div class="flex items-center gap-2">
   <p class="mb-0.5">
     {state}
-    &middot;
     {weather!.temperature_2m}&deg;
   </p>
 </div>

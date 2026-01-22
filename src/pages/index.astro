@@ -3,7 +3,7 @@ import BookmarkList from "../components/BookmarkList.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout includeSidebar={true}>
+<Layout hasSidebar={true}>
   <BookmarkList server:defer>
     <div slot="fallback" class="h-dvh grid place-items-center">
       <p>Loading bookmarks...</p>

@@ -1,7 +1,15 @@
-<div
-  class="diagonal-border border-t border-b md:border-l md:border-r h-6 w-full lg:w-6 lg:h-full border-[#ccc] row-start-3 lg:row-span-3 lg:row-start-1 lg:col-start-2"
->
-</div>
+---
+interface Props {
+  classList?: string;
+}
+
+const { classList } = Astro.props;
+
+const dividerClass =
+  "diagonal-border border-t border-b lg:border-l lg:border-r h-6 w-full lg:w-6 lg:h-full border-[#ccc]";
+---
+
+<div class:list={[classList, dividerClass]}></div>
 
 <style>
   .diagonal-border {

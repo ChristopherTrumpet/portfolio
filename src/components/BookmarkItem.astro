@@ -39,15 +39,15 @@ const date = new Date(dateAdded).toLocaleDateString();
         >
           <a target="_blank" href={url} class="">{title}</a>
         </h3>
-        <p class="text-sm leading-tight tracking-wide truncate text-zinc-500">
-          {author} &middot; Added {date}
+        <p class="text-sm leading-snug tracking-wide truncate text-zinc-600">
+          {author} &middot; added {date}
         </p>
       </div>
     </div>
     {
       comments && (
         <button
-          class="pl-2 ml-2 transition-all cursor-pointer shrink-0 hover:text-zinc-500 hover:scale-110"
+          class="pl-2 ml-2 transition-all cursor-pointer shrink-0 hover:text-zinc-600 hover:scale-110"
           id="comments-btn"
         >
           <svg

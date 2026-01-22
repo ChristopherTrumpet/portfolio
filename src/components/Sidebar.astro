@@ -1,84 +1,19 @@
 ---
-import Navigation from "./Navigation.astro";
+import Footer from "./Footer.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+
+interface Props {
+  classList?: string;
+}
+
+const { classList } = Astro.props;
 ---
 
-<section class="py-12 my-12 lg:py-4 lg:my-6">
-  <div class="mb-6">
-    <audio src="/trumpet-sfx.mp3" id="trumpet-sfx"></audio>
-    <div class="mb-4">
-      <a
-        class="font-bold cursor-pointer tracking-tight hover:underline"
-        href="mailto:christopher.m.t.2005@gmail.com?subject=[Job%20Inquiry]%20<insert%20subject>"
-        >Currently for hire</a
-      >
-    </div>
-    <h1
-      class="mb-5 font-serif text-5xl font-normal tracking-tight lowercase lg:text-5xl"
-    >
-      <a href="/">Christopher Trumpet Jr. </a><button
-        id="play-btn"
-        class="transition-all cursor-pointer hover:scale-110 active:scale-90"
-        >🎺</button
-      >
-    </h1>
-    <p class="text-zinc-500">
-      I'm a software developer dedicated to writing effective, impactful code
-      which serve to improve the lives of the people who use them both directly
-      or indirectly, <em>ideally</em>.
-    </p>
+<aside class:list={[classList, "flex flex-col justify-between"]}>
+  <Header />
+  <Hero />
+  <div class="hidden lg:block">
+    <Footer />
   </div>
-  <Navigation />
-</section>
-
-<script>
-  let rawAudioData: ArrayBuffer | null = null;
-  let audioBuffer: AudioBuffer | null = null;
-  let audioCtx: AudioContext | null = null;
-
-  const SFX_URL = "/trumpet-sfx.mp3";
-
-  async function preloadFile() {
-    try {
-      const response = await fetch(SFX_URL);
-      rawAudioData = await response.arrayBuffer();
-    } catch (err) {
-      console.error("Failed to download audio file:", err);
-    }
-  }
-
-  async function handlePlayClick() {
-    if (!rawAudioData) return;
-
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.AudioContext)();
-    }
-
-    if (!audioBuffer) {
-      audioBuffer = await audioCtx.decodeAudioData(rawAudioData);
-    }
-
-    if (audioCtx.state === "suspended") {
-      await audioCtx.resume();
-    }
-
-    const source = audioCtx.createBufferSource();
-    const gainNode = audioCtx.createGain();
-
-    source.buffer = audioBuffer;
-
-    const pitchRange = 0.075;
-    const volumeRange = 0.1;
-    source.playbackRate.value = 1.0 + (Math.random() * 2 - 1) * pitchRange;
-    gainNode.gain.value = 1.0 - Math.random() * volumeRange;
-
-    source.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    source.start(0);
-  }
-
-  preloadFile();
-
-  document
-    .getElementById("play-btn")
-    ?.addEventListener("click", handlePlayClick);
-</script>
+</aside>

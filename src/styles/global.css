@@ -1,1 +1,59 @@
 @import "tailwindcss";
+
+:root,
+html {
+  background-color: #eee;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: -100px;
+  background: url("../assets/grain.gif");
+
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 8%,
+    black 30%,
+    black 75%,
+    transparent 92%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 8%,
+    black 30%,
+    black 75%,
+    transparent 92%
+  );
+
+  z-index: 9999;
+  pointer-events: none;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  html::before {
+    background: url("../assets/grain.gif");
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 3%,
+      black 16%,
+      black 90%,
+      transparent 95%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 3%,
+      black 16%,
+      black 90%,
+      transparent 95%
+    );
+  }
+}
