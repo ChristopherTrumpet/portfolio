@@ -36,7 +36,7 @@ export default function ChatBot() {
 
     try {
       // Fetching from our Hono endpoint
-      const response = await fetch("https://api.cmkt.dev/chat", {
+      const response = await fetch("https://api.cmkt.dev/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
