@@ -127,16 +127,12 @@ export default function ChatBot() {
             className="p-3 border-t border-zinc-300 bg-zinc-50"
           >
             <div className="flex gap-2">
-              <textarea
+              <input
+                type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about my projects..."
                 className="flex-1 px-4 py-2 bg-zinc-50  border border-zinc-300  rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
-                rows={1}
-                onBlur={(e) => {
-                  e.target.style.height = "";
-                  e.target.style.width = "";
-                }}
               />
               <button
                 type="submit"
