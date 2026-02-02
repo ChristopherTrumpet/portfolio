@@ -79,11 +79,10 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end font-sans">
+    <div className="fixed bottom-6 right-6 left-6 z-50 flex flex-col items-end font-sans">
       {isOpen && (
-        <div className="w-lg h-160 bg-zinc-50 border border-zinc-300 rounded-2xl flex flex-col overflow-hidden">
-          {/* Header */}
-          <div className="bg-zinc-100 p-4 border-b border-zinc-300 flex justify-between items-center">
+        <div className="h-172 lg:w-lg lg:h-160 bg-zinc-50 border border-zinc-300 rounded-2xl flex flex-col overflow-hidden">
+          <div className="bg-zinc-100  p-4 border-b border-zinc-300 flex justify-between items-center">
             <div>
               <h3 className="font-bold text-zinc-800">cmkt.ai</h3>
               <p className="text-xs text-zinc-500">
@@ -98,7 +97,6 @@ export default function ChatBot() {
             </button>
           </div>
 
-          {/* Chat History */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50">
             {messages.map((msg, idx) => (
               <div
@@ -117,25 +115,28 @@ export default function ChatBot() {
               </div>
             ))}
             {isLoading && (
-              <div className="text-xs text-zinc-500 animate-pulse pl-2">
+              <div className="text-sm text-zinc-500 animate-pulse pl-2">
                 typing...
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
           <form
             onSubmit={handleSubmit}
             className="p-3 border-t border-zinc-300 bg-zinc-50"
           >
             <div className="flex gap-2">
-              <input
-                type="text"
+              <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about my projects..."
-                className="flex-1 px-4 py-2 bg-zinc-50  border border-zinc-300  rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
+                className="flex-1 px-4 py-2 bg-zinc-50  border border-zinc-300  rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
+                rows={1}
+                onBlur={(e) => {
+                  e.target.style.height = "";
+                  e.target.style.width = "";
+                }}
               />
               <button
                 type="submit"
@@ -153,7 +154,7 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="hover:bg-zinc-700 text-zinc-500 hover:text-zinc-50 w-14 h-14 rounded-full border border-zinc-300 flex items-center justify-center transition-all hover:scale-110"
+          className="bg-zinc-50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-50 w-14 h-14 rounded-full border border-zinc-300 flex items-center justify-center transition-all hover:scale-110"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
