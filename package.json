@@ -10,18 +10,21 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
-    "@astrojs/vercel": "^9.0.4",
+    "@astrojs/vercel": "^8.0.4",
+    "@langchain/langgraph-sdk": "^1.5.5",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.16.12",
     "astro-icon": "^1.1.5",
+    "markdown-it": "^14.1.0",
     "openmeteo": "^1.2.3",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^25.0.9"
   }
 }

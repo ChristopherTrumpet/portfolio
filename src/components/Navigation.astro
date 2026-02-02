@@ -27,24 +27,28 @@ import NavigationButton from "./NavigationButton.astro";
     </li>
     <div class="h-auto border-l border-r border-zinc-300"></div>
     <li class="flex-1 inline-block">
-      <NavigationButton href="/chat" disabled={false}>
+      <NavigationButton href="/media" disabled={true}>
         <!-- <Icon name="tabler:message-circle" size={24} /> -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="24px"
+          height="24px"
           viewBox="0 0 24 24"
         >
-          <path
+          <g
             fill="none"
             stroke="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="1.25"
-            d="m3 20l1.3-3.9C1.976 12.663 2.874 8.228 6.4 5.726c3.526-2.501 8.59-2.296 11.845.48c3.255 2.777 3.695 7.266 1.029 10.501S11.659 20.922 7.7 19z"
-          ></path>
+          >
+            <path
+              d="M5 7h1a2 2 0 0 0 2-2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2"
+            ></path>
+            <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0-6 0"></path>
+          </g>
         </svg>
-        chat
+        media
       </NavigationButton>
     </li>
     <li class="flex-1 inline-block">
