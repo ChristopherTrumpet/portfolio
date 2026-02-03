@@ -113,11 +113,11 @@ export default function ChatBot() {
     <div
       className={`fixed z-50 transition-all duration-300 ${
         isOpen
-          ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
-          : `right-6 items-end lg:bottom-6 ${
+          ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-4 sm:right-4 sm:p-0 sm:block"
+          : `right-4 items-end lg:bottom-4 ${
               isAtBottom
                 ? "bottom-16"
-                : "bottom-6 max-lg:[@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"
+                : "bottom-4 max-lg:[@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"
             }`
       }`}
     >
