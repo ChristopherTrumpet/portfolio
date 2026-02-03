@@ -20,7 +20,7 @@ const params = {
 const url = "https://api.open-meteo.com/v1/forecast";
 
 let weather: WeatherObject | null = null;
-const INTERVAL = 15 * 60 * 1000; // 15 Minutes
+const INTERVAL = 60 * 60 * 1000; // 1 Hour
 
 export async function getWeather() {
   const now = Date.now();
@@ -29,23 +29,35 @@ export async function getWeather() {
     return weather;
   }
 
-  try {
-    const responses = await fetchWeatherApi(url, params);
-    const response = responses[0];
-    const current = response.current();
+  let attempts = 0;
+  const MAX_RETRIES = 2;
 
-    weather = {
-      temperature_2m: Math.round(current!.variables(0)!.value()),
-      rain: current!.variables(1)!.value(),
-      snowfall: current!.variables(2)!.value(),
-      cloud_cover: current!.variables(3)!.value(),
-      is_day: current!.variables(4)!.value(),
-      last_fetched: now,
-    };
+  while (attempts < MAX_RETRIES) {
+    try {
+      const responses = await fetchWeatherApi(url, params);
+      const response = responses[0];
+      const current = response.current();
 
-    return weather;
-  } catch (error) {
-    console.error("Unable to fetch weather data.", error);
-    return weather;
+      weather = {
+        temperature_2m: Math.round(current!.variables(0)!.value()),
+        rain: current!.variables(1)!.value(),
+        snowfall: current!.variables(2)!.value(),
+        cloud_cover: current!.variables(3)!.value(),
+        is_day: current!.variables(4)!.value(),
+        last_fetched: now,
+      };
+
+      return weather;
+    } catch (error) {
+      attempts++;
+      console.warn(`Weather fetch attempt ${attempts} failed.`);
+
+      if (attempts >= MAX_RETRIES) {
+        console.error("Unable to fetch weather data after retries.", error);
+        return weather;
+      }
+    }
   }
+
+  return weather;
 }

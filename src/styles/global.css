@@ -3,6 +3,7 @@
 :root,
 html {
   background-color: #eee;
+  scroll-behavior: smooth;
 }
 
 #grainy::before {
