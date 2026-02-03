@@ -114,7 +114,11 @@ export default function ChatBot() {
       className={`fixed z-50 transition-all duration-300 ${
         isOpen
           ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
-          : `${isAtBottom ? "bottom-16" : "bottom-6 [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]"} right-6 items-end lg:bottom-6`
+          : `right-6 items-end lg:bottom-6 ${
+              isAtBottom
+                ? "bottom-16"
+                : "bottom-6 max-lg:[@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"
+            }`
       }`}
     >
       {isOpen && (
