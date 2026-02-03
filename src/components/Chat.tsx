@@ -20,7 +20,6 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [isAtBottom, setIsAtBottom] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -36,24 +35,6 @@ export default function ChatBot() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.innerHeight + window.scrollY;
-      const docHeight = document.documentElement.offsetHeight;
-
-      if (currentScroll >= docHeight - 50) {
-        setIsAtBottom(true);
-      } else {
-        setIsAtBottom(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup listener on unmount
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,7 +93,11 @@ export default function ChatBot() {
 
   return (
     <div
-      className={`fixed right-6 ${isOpen ? "..." : "bottom-6 [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"}`}
+      className={`fixed z-50 transition-all duration-300 ${
+        isOpen
+          ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
+          : "bottom-6 right-6 items-end [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"
+      }`}
     >
       {isOpen && (
         <div className="w-full h-full sm:w-104 sm:h-152 lg:w-md lg:h-168 bg-zinc-50 border border-zinc-300 sm:rounded-2xl rounded-xl shadow-xl flex flex-col overflow-hidden">
@@ -167,7 +152,7 @@ export default function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about my projects..."
-                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-base focus:outline-none focus:ring-1 focus:ring-zinc-300"
+                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
               />
               <button
                 type="submit"
@@ -185,7 +170,7 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-zinc-50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-50 w-14 h-14 rounded-full border border-zinc-300 flex items-center justify-center transition-all hover:scale-110 shadow-lg"
+          className="bg-zinc-50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-50 w-14 h-14 rounded-full border border-zinc-300 flex items-center justify-center transition-all hover:scale-110 "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
