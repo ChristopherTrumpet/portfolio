@@ -174,7 +174,7 @@ export default function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about my projects..."
-                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
+                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-base focus:outline-none focus:ring-1 focus:ring-zinc-300"
               />
               <button
                 type="submit"
