@@ -112,7 +112,7 @@ export default function ChatBot() {
 
   return (
     <div
-      className={`fixed right-6 ${isOpen ? "..." : "bottom-[1.5rem] [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"}`}
+      className={`fixed right-6 ${isOpen ? "..." : "bottom-6 [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"}`}
     >
       {isOpen && (
         <div className="w-full h-full sm:w-104 sm:h-152 lg:w-md lg:h-168 bg-zinc-50 border border-zinc-300 sm:rounded-2xl rounded-xl shadow-xl flex flex-col overflow-hidden">
