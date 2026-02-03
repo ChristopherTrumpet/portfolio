@@ -21,6 +21,7 @@ export default function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(false);
+  const [hasSafeArea, setHasSafeArea] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -53,6 +54,32 @@ export default function ChatBot() {
 
     // Cleanup listener on unmount
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // Detect if the device has a safe area inset
+    const checkSafeArea = () => {
+      const bottomInset =
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--safe-area-inset-bottom",
+        ) ||
+        window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue("padding-bottom");
+
+      // We create a temporary div to measure the actual env value
+      const div = document.createElement("div");
+      div.style.paddingBottom = "env(safe-area-inset-bottom)";
+      document.body.appendChild(div);
+      const computedPadding = parseInt(getComputedStyle(div).paddingBottom);
+      document.body.removeChild(div);
+
+      if (computedPadding > 0) {
+        setHasSafeArea(true);
+      }
+    };
+
+    checkSafeArea();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -115,7 +142,9 @@ export default function ChatBot() {
       className={`fixed z-50 transition-all duration-300 ${
         isOpen
           ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
-          : `right-6 items-end ${isAtBottom ? "bottom-16" : "bottom-6"}`
+          : `right-6 items-end ${
+              isAtBottom ? "bottom-16" : hasSafeArea ? "bottom-2" : "bottom-6"
+            }`
       }`}
     >
       {isOpen && (
@@ -171,7 +200,7 @@ export default function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about my projects..."
-                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
+                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-base focus:outline-none focus:ring-1 focus:ring-zinc-300"
               />
               <button
                 type="submit"
