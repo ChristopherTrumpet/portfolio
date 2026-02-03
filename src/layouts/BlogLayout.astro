@@ -1,5 +1,6 @@
 ---
 import Chat from "../components/Chat";
+import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
 
@@ -19,19 +20,26 @@ const { frontmatter } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{frontmatter.title}</title>
   </head>
-  <body class="container mx-auto max-w-3xl h-dvh">
+  <body class="container mx-auto max-w-3xl h-dvh lg:px-0 flex flex-col">
     <Navbar />
-    <main class="h-full blog">
+    <main class="blog grow px-4 mb-8 lg:px-0">
       <slot />
     </main>
+    <Footer />
     <Chat client:load />
   </body>
   <div id="grainy"></div>
   <style>
     .blog :global(h1) {
       font-family: var(--font-serif);
-      font-size: var(--text-5xl);
-      margin-top: 8rem;
+      font-size: var(--text-3xl);
+    }
+
+    @media (width >= 64rem) {
+      .blog :global(h1) {
+        font-size: var(--text-5xl);
+        margin-top: 4rem;
+      }
     }
 
     .blog :global(p) {

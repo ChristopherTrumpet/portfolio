@@ -1,12 +1,15 @@
 ---
 import Chat from "../components/Chat";
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
 
 interface Props {
   title?: string;
+  classList?: string;
 }
 
-const { title = "Christopher Trumpet" } = Astro.props;
+const { title = "Christopher Trumpet", classList } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,9 +30,18 @@ const { title = "Christopher Trumpet" } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="h-dvh">
-    <main class="container mx-auto max-w-8xl h-full">
-      <slot />
-    </main>
+    <div
+      class:list={[
+        "container mx-auto max-w-8xl h-full flex flex-col",
+        classList,
+      ]}
+    >
+      <Navbar />
+      <main class="grow">
+        <slot />
+      </main>
+      <Footer />
+    </div>
     <Chat client:load />
   </body>
   <div id="grainy"></div>

@@ -10,15 +10,16 @@ const allPosts = Object.values(
 );
 ---
 
-<Layout>
-  <section class="mx-auto max-w-3xl h-full flex flex-col">
-    <Navbar />
+<Layout classList="max-w-3xl">
+  <section class="flex flex-col px-4 lg:px-0">
     <div class="mb-8">
-      <h1 class="text-5xl font-serif tracking-tight leading-tight mt-16">
+      <h1
+        class="text-3xl lg:text-5xl font-serif tracking-tight leading-tight lg:mt-16 pb-2"
+      >
         my blog posts...
       </h1>
-      <p class="text-zinc-700 leading-loose">
-        some posts, some food, some dev related, some random things
+      <p class="text-zinc-700 leading-snug text-base">
+        some food adventures, some devlogs, some random things
       </p>
     </div>
     <section class="grow">
@@ -39,6 +40,5 @@ const allPosts = Object.values(
         }
       </ul>
     </section>
-    <Footer />
   </section>
 </Layout>
