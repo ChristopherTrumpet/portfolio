@@ -21,7 +21,6 @@ export default function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(false);
-  const [hasSafeArea, setHasSafeArea] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -54,32 +53,6 @@ export default function ChatBot() {
 
     // Cleanup listener on unmount
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    // Detect if the device has a safe area inset
-    const checkSafeArea = () => {
-      const bottomInset =
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--safe-area-inset-bottom",
-        ) ||
-        window
-          .getComputedStyle(document.documentElement)
-          .getPropertyValue("padding-bottom");
-
-      // We create a temporary div to measure the actual env value
-      const div = document.createElement("div");
-      div.style.paddingBottom = "env(safe-area-inset-bottom)";
-      document.body.appendChild(div);
-      const computedPadding = parseInt(getComputedStyle(div).paddingBottom);
-      document.body.removeChild(div);
-
-      if (computedPadding > 0) {
-        setHasSafeArea(true);
-      }
-    };
-
-    checkSafeArea();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -139,13 +112,7 @@ export default function ChatBot() {
 
   return (
     <div
-      className={`fixed z-50 transition-all duration-300 ${
-        isOpen
-          ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
-          : `right-6 items-end ${
-              isAtBottom ? "bottom-16" : hasSafeArea ? "bottom-2" : "bottom-6"
-            }`
-      }`}
+      className={`fixed right-6 ${isOpen ? "..." : "bottom-[1.5rem] [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"}`}
     >
       {isOpen && (
         <div className="w-full h-full sm:w-104 sm:h-152 lg:w-md lg:h-168 bg-zinc-50 border border-zinc-300 sm:rounded-2xl rounded-xl shadow-xl flex flex-col overflow-hidden">
