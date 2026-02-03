@@ -8,7 +8,9 @@ const response = await fetch(`${API_URL}/bookmarks`, {
 const bookmarks = await response.json();
 ---
 
-<section class="flex flex-col h-full px-6 py-16 lg:py-0 lg:justify-center">
+<section
+  class="flex flex-col h-fit lg:h-full px-6 py-16 lg:py-0 lg:justify-center"
+>
   <div class="w-full max-w-2xl mx-auto">
     <h2
       class="mb-4 font-serif text-xl lg:text-2xl font-normal tracking-tight text-zinc-800"
