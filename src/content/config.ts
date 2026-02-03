@@ -4,7 +4,7 @@ import { defineCollection } from "astro:content";
 export const collections = {
   assets: defineCollection({
     loader: cldAssetsLoader({
-      limit: 20,
+      limit: 500,
       metadata: true,
     }),
   }),

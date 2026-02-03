@@ -1,0 +1,224 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import { getCollection } from "astro:content";
+import { CldImage } from "astro-cloudinary";
+import type { GetStaticPaths, Page } from "astro";
+
+interface Props {
+  page: Page<any>;
+}
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const assets = await getCollection("assets");
+
+  return paginate(assets, { pageSize: 20 });
+};
+
+const { page } = Astro.props;
+---
+
+<Layout>
+  <div class="mb-8 px-4 lg:px-0">
+    <Navbar />
+    <h1
+      class="text-3xl lg:text-5xl lg:px-0 font-serif tracking-tight leading-tight"
+    >
+      My media archive...
+    </h1>
+    <p class="text-sm lg:text-base font-sans text-zinc-700">
+      I sometimes take photos / videos and even 3d model occasionally.
+    </p>
+  </div>
+
+  <div id="masonry-root" class="flex gap-2 mx-auto px-2 lg:px-0 items-start">
+  </div>
+
+  <div id="staging-area" class="hidden">
+    {
+      page.data.map((asset) => (
+        <div class="masonry-item mb-2 w-full">
+          <CldImage
+            src={asset.data.public_id}
+            width={asset.data.width}
+            height={asset.data.height}
+            alt={asset.data.context?.custom?.alt || "Image description"}
+            loading="lazy"
+            class="w-full h-auto block bg-zinc-100 transition-opacity duration-500"
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div id="loading-sentinel" class="py-12 text-center w-full">
+    {
+      page.url.next ? (
+        <div class="flex flex-col items-center gap-2">
+          <div class="spinner" />
+          <span class="text-zinc-400 text-sm font-sans">Loading more...</span>
+        </div>
+      ) : (
+        <span class="text-zinc-400 text-sm font-sans">End of archive.</span>
+      )
+    }
+  </div>
+
+  {
+    page.url.next && (
+      <div id="next-page-url" data-url={page.url.next} class="hidden" />
+    )
+  }
+</Layout>
+
+<style>
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e4e4e7;
+    border-top-color: #52525b;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  :global(.fade-in) {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // Masonry layout stuff
+  const ROOT_ID = "masonry-root";
+  const STAGING_ID = "staging-area";
+
+  function getColumnCount() {
+    if (window.innerWidth < 768) return 2;
+    if (window.innerWidth < 1024) return 3;
+    return 4;
+  }
+
+  // Helper to create column elements
+  function createColumns(count: number) {
+    const root = document.getElementById(ROOT_ID);
+    if (!root) return [];
+
+    root.innerHTML = ""; // Clear existing
+    const columns: HTMLElement[] = [];
+
+    for (let i = 0; i < count; i++) {
+      const col = document.createElement("div");
+      // share width equally
+      col.className = "flex-1 flex flex-col min-w-0";
+      root.appendChild(col);
+      columns.push(col);
+    }
+    return columns;
+  }
+
+  function distributeItems(items: NodeListOf<Element>, columns: HTMLElement[]) {
+    items.forEach((item) => {
+      // Find the shortest column
+      const shortestCol = columns.reduce((prev, curr) =>
+        prev.offsetHeight < curr.offsetHeight ? prev : curr,
+      );
+
+      shortestCol.appendChild(item);
+
+      item.classList.add("fade-in");
+    });
+  }
+
+  let currentColumns: HTMLElement[] = [];
+
+  function initMasonry() {
+    const count = getColumnCount();
+    currentColumns = createColumns(count);
+
+    const staging = document.getElementById(STAGING_ID);
+    if (staging) {
+      const items = staging.querySelectorAll(".masonry-item");
+      distributeItems(items, currentColumns);
+    }
+  }
+
+  // Handle Resize (Re-distribute items if column count changes)
+  let resizeTimeout: number;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = window.setTimeout(() => {
+      const newCount = getColumnCount();
+      if (currentColumns.length !== newCount) {
+        const allItems = document.querySelectorAll(".masonry-item");
+        const staging = document.getElementById(STAGING_ID);
+        const root = document.getElementById(ROOT_ID);
+
+        if (root && staging) {
+          allItems.forEach((item) => staging.appendChild(item));
+          initMasonry();
+        }
+      }
+    }, 200);
+  });
+
+  initMasonry();
+
+  let isLoading = false;
+  const sentinel = document.getElementById("loading-sentinel");
+  let nextUrlDiv = document.getElementById("next-page-url");
+
+  const observer = new IntersectionObserver(
+    async (entries) => {
+      if (entries[0].isIntersecting && nextUrlDiv && !isLoading) {
+        isLoading = true;
+        const nextUrl = nextUrlDiv.dataset.url;
+        if (!nextUrl) return;
+
+        try {
+          const response = await fetch(nextUrl);
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+
+          // Get new items from the fetched page's staging area
+          const newItems = doc.querySelectorAll(`#${STAGING_ID} .masonry-item`);
+
+          distributeItems(newItems, currentColumns);
+
+          // Update pagination
+          const newNextUrlDiv = doc.getElementById("next-page-url");
+          if (newNextUrlDiv && newNextUrlDiv instanceof HTMLElement) {
+            nextUrlDiv.dataset.url = newNextUrlDiv.dataset.url;
+            isLoading = false;
+          } else {
+            nextUrlDiv.remove();
+            nextUrlDiv = null;
+            if (sentinel)
+              sentinel.innerHTML =
+                '<span class="text-zinc-400 text-sm font-sans">End of archive.</span>';
+          }
+        } catch (error) {
+          console.error(error);
+          isLoading = false;
+        }
+      }
+    },
+    { rootMargin: "400px" },
+  );
+
+  if (sentinel) observer.observe(sentinel);
+</script>
