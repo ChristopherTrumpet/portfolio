@@ -20,6 +20,7 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -35,6 +36,23 @@ export default function ChatBot() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.offsetHeight;
+
+      if (currentScroll >= docHeight - 50) {
+        setIsAtBottom(true);
+      } else {
+        setIsAtBottom(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,7 +114,7 @@ export default function ChatBot() {
       className={`fixed z-50 transition-all duration-300 ${
         isOpen
           ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
-          : "bottom-6 right-6 items-end [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"
+          : `${isAtBottom ? "bottom-16" : "bottom-6 [@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"} right-6 items-end`
       }`}
     >
       {isOpen && (
