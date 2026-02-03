@@ -1,0 +1,44 @@
+---
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import Layout from "../layouts/Layout.astro";
+
+function ellipsesPadding() {}
+
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true }),
+);
+---
+
+<Layout>
+  <section class="mx-auto max-w-3xl h-full flex flex-col">
+    <Navbar />
+    <div class="mb-8">
+      <h1 class="text-5xl font-serif tracking-tight leading-tight mt-16">
+        my blog posts...
+      </h1>
+      <p class="text-zinc-700 leading-loose">
+        some posts, some food, some dev related, some random things
+      </p>
+    </div>
+    <section class="grow">
+      <ul class="flex flex-col space-y-2">
+        {
+          allPosts.map((post: any) => (
+            <li>
+              <a
+                href={post.url}
+                class="flex gap-2 font-semibold tracking-tight leading-snug"
+              >
+                {post.frontmatter.title}
+                <div class="border-b border-dotted grow" />
+                <p class="font-mono font-normal leading-snug">12</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <Footer />
+  </section>
+</Layout>

@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar.astro";
 import { getCollection } from "astro:content";
 import { CldImage } from "astro-cloudinary";
 import type { GetStaticPaths, Page } from "astro";
+import Footer from "../../components/Footer.astro";
 
 interface Props {
   page: Page<any>;
@@ -69,6 +70,7 @@ const { page } = Astro.props;
       <div id="next-page-url" data-url={page.url.next} class="hidden" />
     )
   }
+  <Footer />
 </Layout>
 
 <style>
