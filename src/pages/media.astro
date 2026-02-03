@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { CldImage } from "astro-cloudinary";
+import Navbar from "../components/Navbar.astro";
+
+const assets = await getCollection("assets");
+---
+
+<Layout>
+  <div class="mb-4">
+    <Navbar />
+    <h1 class="text-5xl font-serif tracking-tight leading-tight">
+      My media archive...
+    </h1>
+    <p class="text-base font-sans text-zinc-700">
+      I sometimes take photos / videos and even 3d model occasionally.
+    </p>
+  </div>
+  <section class="gallery mx-auto">
+    {
+      assets.map((asset) => (
+        <Fragment key={asset.id}>
+          <div class="item">
+            <CldImage
+              src={asset.data.public_id}
+              width={asset.data.width}
+              height={asset.data.height}
+              alt={asset.data.context?.custom?.alt || "Image description"}
+            />
+          </div>
+        </Fragment>
+      ))
+    }
+  </section>
+</Layout>
+
+<style>
+  .gallery {
+    column-count: 4;
+    column-gap: 0.5rem;
+  }
+
+  .item {
+    break-inside: avoid;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .masonry-container {
+      column-count: 2;
+    }
+  }
+</style>

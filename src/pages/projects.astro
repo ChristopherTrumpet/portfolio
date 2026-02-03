@@ -1,9 +1,10 @@
 ---
 import Project from "../components/Project.astro";
+import HomeLayout from "../layouts/HomeLayout.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout hasSidebar={true}>
+<HomeLayout>
   <section class="flex flex-col justify-center w-full h-full gap-4 px-6">
     <h1 class="font-serif text-2xl tracking-tight">
       here's some projects I worked on...
@@ -43,4 +44,4 @@ import Layout from "../layouts/Layout.astro";
       />
     </div>
   </section>
-</Layout>
+</HomeLayout>

@@ -5,7 +5,7 @@ html {
   background-color: #eee;
 }
 
-html::before {
+#grainy::before {
   content: "";
   position: fixed;
   inset: -100px;
@@ -35,6 +35,7 @@ html::before {
 
 body {
   position: relative;
+  background-color: #eee;
   min-height: 100vh;
 }
 

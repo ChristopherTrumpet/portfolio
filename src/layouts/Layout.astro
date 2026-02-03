@@ -1,20 +1,13 @@
 ---
 import Chat from "../components/Chat";
-import Divider from "../components/Divider.astro";
 import Footer from "../components/Footer.astro";
-import Sidebar from "../components/Sidebar.astro";
 import "../styles/global.css";
 
 interface Props {
   title?: string;
-  hasSidebar?: boolean;
 }
 
-const { title = "Christopher Trumpet", hasSidebar = false } = Astro.props;
-
-const baseClasses = "min-h-dvh w-full";
-const sidebarGrid =
-  "grid grid-cols-1 grid-rows-[1fr_auto_1fr] lg:grid-cols-[1fr_auto_1fr] lg:grid-rows-1";
+const { title = "Christopher Trumpet" } = Astro.props;
 ---
 
 <!doctype html>
@@ -26,39 +19,20 @@ const sidebarGrid =
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#eee" />
+    <meta
+      name="description"
+      content="Personal website for Christopher Trumpet Jr. The site contains my portfolio, web toys, media archive, blogs, and cooking logs."
+    />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-[#eee]">
-    <div class:list={[baseClasses, hasSidebar && sidebarGrid]}>
-      {
-        hasSidebar ? (
-          <>
-            <div class="flex flex-col max-w-2xl row-start-1 mx-auto lg:col-start-1 min-d-dvh">
-              <Sidebar classList="grow" />
-            </div>
-
-            <div class="row-start-2 lg:col-start-2 lg:row-start-1">
-              <Divider />
-            </div>
-
-            <main class="w-full h-full max-w-2xl row-start-3 mx-auto lg:col-start-3 lg:row-span-full">
-              <slot />
-              <div class="lg:hidden">
-                <Footer />
-              </div>
-            </main>
-          </>
-        ) : (
-          <div class="flex flex-col lg:min-h-dvh">
-            <main class="lg:grow">
-              <slot />
-            </main>
-          </div>
-        )
-      }
-    </div>
+  <body class="flex flex-col">
+    <main class="container grow mx-auto">
+      <slot />
+    </main>
+    <Footer />
     <Chat client:load />
   </body>
+  <div id="grainy"></div>
 </html>

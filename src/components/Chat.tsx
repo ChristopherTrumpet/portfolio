@@ -20,10 +20,40 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.offsetHeight;
+
+      if (currentScroll >= docHeight - 50) {
+        setIsAtBottom(true);
+      } else {
+        setIsAtBottom(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup listener on unmount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +65,6 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      // Fetching from our Hono endpoint
       const response = await fetch("https://api.cmkt.dev/chat", {
         method: "POST",
         headers: {
@@ -82,10 +111,16 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 left-6 z-50 flex flex-col items-end font-sans">
+    <div
+      className={`fixed z-50 transition-all duration-300 ${
+        isOpen
+          ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-6 sm:right-6 sm:p-0 sm:block"
+          : `right-6 items-end ${isAtBottom ? "bottom-16" : "bottom-6"}`
+      }`}
+    >
       {isOpen && (
-        <div className="h-172 lg:w-lg lg:h-160 bg-zinc-50 border border-zinc-300 rounded-2xl flex flex-col overflow-hidden">
-          <div className="bg-zinc-100  p-4 border-b border-zinc-300 flex justify-between items-center">
+        <div className="w-full h-full sm:w-104 sm:h-152 lg:w-md lg:h-168 bg-zinc-50 border border-zinc-300 sm:rounded-2xl rounded-xl shadow-xl flex flex-col overflow-hidden">
+          <div className="bg-zinc-100 p-4 border-b border-zinc-300 flex justify-between items-center shrink-0">
             <div>
               <h3 className="font-bold text-zinc-800">cmkt.ai</h3>
               <p className="text-xs text-zinc-500">
@@ -94,7 +129,7 @@ export default function ChatBot() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-zinc-500 hover:text-zinc-800"
+              className="text-zinc-500 hover:text-zinc-800 p-2"
             >
               ✕
             </button>
@@ -104,15 +139,16 @@ export default function ChatBot() {
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                className={`flex ${
+                  msg.role === "user" ? "justify-end" : "justify-start"
+                }`}
               >
                 <div
-                  className={`max-w-[75%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
+                  className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
                     msg.role === "user"
                       ? "bg-slate-300 text-slate-800 rounded-br-none"
                       : "bg-zinc-300/50 text-zinc-800 rounded-bl-none"
                   }`}
-                  // Render Markdown safely
                   dangerouslySetInnerHTML={{ __html: md.render(msg.content) }}
                 />
               </div>
@@ -127,7 +163,7 @@ export default function ChatBot() {
 
           <form
             onSubmit={handleSubmit}
-            className="p-3 border-t border-zinc-300 bg-zinc-50"
+            className="p-3 border-t border-zinc-300 bg-zinc-50 shrink-0"
           >
             <div className="flex gap-2">
               <input
@@ -135,7 +171,7 @@ export default function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about my projects..."
-                className="flex-1 px-4 py-2 bg-zinc-50  border border-zinc-300  rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
+                className="flex-1 px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-zinc-300"
               />
               <button
                 type="submit"
@@ -153,7 +189,7 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-zinc-50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-50 w-14 h-14 rounded-full border border-zinc-300 flex items-center justify-center transition-all hover:scale-110"
+          className="bg-zinc-50 hover:bg-zinc-700 text-zinc-500 hover:text-zinc-50 w-14 h-14 rounded-full border border-zinc-300 flex items-center justify-center transition-all hover:scale-110 shadow-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

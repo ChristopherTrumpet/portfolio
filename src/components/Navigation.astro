@@ -6,7 +6,6 @@ import NavigationButton from "./NavigationButton.astro";
   <ul class="flex flex-col gap-4 pt-2 lg:flex-row md:pt-0 sm:flex-wrap">
     <li class="flex-1 inline-block">
       <NavigationButton href="/projects">
-        <!-- <Icon name="tabler:cards" size={24} /> -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -27,8 +26,7 @@ import NavigationButton from "./NavigationButton.astro";
     </li>
     <div class="h-auto border-l border-r border-zinc-300"></div>
     <li class="flex-1 inline-block">
-      <NavigationButton href="/media" disabled={true}>
-        <!-- <Icon name="tabler:message-circle" size={24} /> -->
+      <NavigationButton href="/media" disabled={false}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24px"
@@ -52,7 +50,7 @@ import NavigationButton from "./NavigationButton.astro";
       </NavigationButton>
     </li>
     <li class="flex-1 inline-block">
-      <NavigationButton href="/sandbox" disabled="true">
+      <NavigationButton href="/sandbox" disabled={true}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24px"
@@ -76,7 +74,7 @@ import NavigationButton from "./NavigationButton.astro";
       </NavigationButton>
     </li>
     <li class="flex-1 inline-block">
-      <NavigationButton href="/blog" disabled="true">
+      <NavigationButton href="/blog" disabled={true}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24px"
