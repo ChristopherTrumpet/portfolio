@@ -1,17 +1,28 @@
 ---
+function getCldImageUrl(arg0: { src: string }): string | undefined {
+  throw new Error("Function not implemented.");
+}
+
 import Layout from "../../layouts/Layout.astro";
-import Navbar from "../../components/Navbar.astro";
 import { getCollection } from "astro:content";
-import { CldImage } from "astro-cloudinary";
+import { CldImage, CldVideoPlayer } from "astro-cloudinary";
 import type { GetStaticPaths, Page } from "astro";
-import Footer from "../../components/Footer.astro";
 
 interface Props {
   page: Page<any>;
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
-  const assets = await getCollection("assets");
+  const images = await getCollection("images");
+  // const videos = await getCollection("videos");
+
+  const assets = images;
+  // const assets = [...images, ...videos].sort((a, b) => {
+  //   return (
+  //     new Date(b.data.created_at).getTime() -
+  //     new Date(a.data.created_at).getTime()
+  //   );
+  // });
 
   return paginate(assets, { pageSize: 20 });
 };
@@ -24,7 +35,7 @@ const { page } = Astro.props;
     <h1
       class="text-3xl lg:text-5xl lg:px-0 font-serif tracking-tight leading-loose lg:leading-relaxed"
     >
-      My media archive...
+      my media archive...
     </h1>
     <p class="text-sm lg:text-base font-sans text-zinc-700">
       I sometimes take photos / videos and even 3d model occasionally.
@@ -37,15 +48,17 @@ const { page } = Astro.props;
   <div id="staging-area" class="hidden">
     {
       page.data.map((asset) => (
-        <div class="masonry-item mb-2 w-full">
-          <CldImage
-            src={asset.data.public_id}
-            width={asset.data.width}
-            height={asset.data.height}
-            alt={asset.data.context?.custom?.alt || "Image description"}
-            loading="lazy"
-            class="w-full h-auto block bg-zinc-100 transition-opacity duration-500"
-          />
+        <div class="masonry-item mb-2 w-full z-20">
+          {asset.data.resource_type === "image" && (
+            <CldImage
+              src={asset.data.public_id}
+              width={asset.data.width}
+              height={asset.data.height}
+              alt={asset.data.context?.custom?.alt || "Image description"}
+              loading="lazy"
+              class="w-full h-auto block bg-zinc-100 transition-opacity duration-500"
+            />
+          )}
         </div>
       ))
     }

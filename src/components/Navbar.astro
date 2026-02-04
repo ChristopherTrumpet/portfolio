@@ -1,3 +1,7 @@
+---
+import NavLink from "./NavLink.astro";
+---
+
 <nav class="flex flex-wrap items-center justify-between py-8 px-4 lg:px-0">
   <h2 class="text-lg font-serif tracking-tight">
     <a href="/">Christopher Trumpet Jr. 🎺</a>
@@ -15,15 +19,17 @@
 
   <ul
     id="menu"
-    class="hidden w-full flex-col gap-4 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0"
+    class="hidden w-full flex-col gap-2 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0 lg:items-end lg:leading-tight"
   >
-    <li><a href="/" class="block">home</a></li>
-    <li><a href="/projects" class="block">projects</a></li>
-    <li><a href="/media" class="block">media</a></li>
-    <li class="pointer-events-none opacity-25">
-      <a tabindex="-1" href="/sandbox" class="block">sandbox</a>
-    </li>
-    <li><a href="/blog" class="block">blog</a></li>
+    <NavLink href={"/"} disabled={false}>home</NavLink>
+    <NavLink href={"/projects"} disabled={false}>projects</NavLink>
+    <div
+      class="border-l border-r hidden lg:inline-block lg:h-4 border-zinc-300"
+    >
+    </div>
+    <NavLink href={"/media"} disabled={false}>media</NavLink>
+    <NavLink href={"/sandbox"} disabled={false}>sandbox</NavLink>
+    <NavLink href={"/blog"} disabled={false}>blog</NavLink>
   </ul>
 </nav>
 

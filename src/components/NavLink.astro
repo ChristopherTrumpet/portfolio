@@ -1,0 +1,58 @@
+---
+const { href, disabled } = Astro.props;
+const { pathname } = Astro.url;
+
+const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
+
+const hoveredClasses = "hover:text-zinc-500";
+const activeClasses = "text-zinc-500 underline underline-offset-6";
+const disabledClasses = "opacity-25 pointer-events-none cursor-not-allowed";
+---
+
+<li>
+  <a
+    href={href}
+    tabindex={disabled && -1}
+    aria-disabled={disabled}
+    aria-describedby={disabled &&
+      "This link is disabled as the page it links to is not fully developed yet"}
+    draggable="false"
+    data-nav-link
+    data-active-class={activeClasses}
+    data-hover-class={hoveredClasses}
+    class:list={[
+      "leading-none transition-all block",
+      isActive ? activeClasses : hoveredClasses,
+      disabled && disabledClasses,
+    ]}
+  >
+    <slot />
+  </a>
+</li>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const links = document.querySelectorAll("a[data-nav-link]");
+    const currentPath = window.location.pathname;
+
+    links.forEach((link) => {
+      if (!(link instanceof HTMLElement)) return;
+
+      const href = link.getAttribute("href");
+      const activeClasses = link.dataset.activeClass?.split(" ") || [];
+      const hoverClasses = link.dataset.hoverClass?.split(" ") || [];
+
+      const isActive =
+        href &&
+        (href === "/" ? currentPath === href : currentPath.startsWith(href));
+
+      if (isActive) {
+        link.classList.add(...activeClasses);
+        link.classList.remove(...hoverClasses);
+      } else {
+        link.classList.remove(...activeClasses);
+        link.classList.add(...hoverClasses);
+      }
+    });
+  });
+</script>
