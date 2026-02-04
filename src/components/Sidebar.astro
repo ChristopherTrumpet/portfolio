@@ -10,7 +10,12 @@ interface Props {
 const { classList } = Astro.props;
 ---
 
-<aside class:list={[classList, "flex flex-col justify-between"]}>
+<aside
+  class:list={[
+    classList,
+    "relative flex flex-col container max-w-2xl mx-auto h-[95dvh] lg:h-dvh px-4 lg:justify-between",
+  ]}
+>
   <Header />
   <Hero />
   <div class="hidden lg:block">

@@ -1,0 +1,11 @@
+---
+import Bookmarks from "./Bookmarks.astro";
+---
+
+<main class="container max-w-2xl px-4 mx-auto">
+  <Bookmarks server:defer>
+    <div slot="fallback" class="grid size-full place-items-center">
+      <p>Loading bookmarks...</p>
+    </div>
+  </Bookmarks>
+</main>
