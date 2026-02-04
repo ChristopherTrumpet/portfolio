@@ -3,9 +3,10 @@
 :root,
 html {
   background-color: #eee;
+  scroll-behavior: smooth;
 }
 
-html::before {
+#grainy::before {
   content: "";
   position: fixed;
   inset: -100px;
@@ -35,7 +36,8 @@ html::before {
 
 body {
   position: relative;
-  min-height: 100vh;
+  background-color: #eee;
+  /* min-height: 100vh; */
 }
 
 @media (min-width: 768px) {

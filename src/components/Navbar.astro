@@ -1,0 +1,38 @@
+<nav class="flex flex-wrap items-center justify-between py-8 px-4 lg:px-0">
+  <h2 class="text-lg font-serif tracking-tight">
+    <a href="/">Christopher Trumpet Jr. 🎺</a>
+  </h2>
+
+  <button id="menu-btn" class="block md:hidden p-2 focus:outline-none">
+    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16m-7 6h7"></path>
+    </svg>
+  </button>
+
+  <ul
+    id="menu"
+    class="hidden w-full flex-col gap-4 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0"
+  >
+    <li><a href="/" class="block">home</a></li>
+    <li><a href="/projects" class="block">projects</a></li>
+    <li><a href="/media" class="block">media</a></li>
+    <li class="pointer-events-none opacity-25">
+      <a tabindex="-1" href="/sandbox" class="block">sandbox</a>
+    </li>
+    <li><a href="/blog" class="block">blog</a></li>
+  </ul>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById("menu-btn");
+  const menu = document.getElementById("menu");
+
+  menuBtn!.addEventListener("click", () => {
+    menu!.classList.toggle("hidden");
+    menu!.classList.toggle("flex");
+  });
+</script>

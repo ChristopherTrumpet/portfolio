@@ -1,11 +1,14 @@
 ---
 import Project from "../components/Project.astro";
-import Layout from "../layouts/Layout.astro";
+import HomeLayout from "../layouts/HomeLayout.astro";
 ---
 
-<Layout hasSidebar={true}>
-  <section class="flex flex-col justify-center w-full h-full gap-4 px-6">
-    <h1 class="font-serif text-2xl tracking-tight">
+<HomeLayout>
+  <section
+    class="flex flex-col justify-center w-full h-full gap-4 px-6 py-16"
+    id="projects"
+  >
+    <h1 class="font-serif text-xl lg:text-2xl tracking-tight">
       here's some projects I worked on...
     </h1>
     <div class="flex flex-col gap-2">
@@ -30,6 +33,16 @@ import Layout from "../layouts/Layout.astro";
         link="https://cmkt.dev"
       />
       <Project
+        name="bookmark site scraper"
+        description="a browser extension for keeping a list of useful sites."
+        link="https://github.com/ChristopherTrumpet/bookmark-scraper-extension"
+      />
+      <Project
+        name="deepphish"
+        description="an automated phishing and logging software for cyber risk assessment"
+        link="https://github.com/ChristopherTrumpet/deepphish"
+      />
+      <Project
         name="microbial analysis lab"
         description="a virtual lab to walk student's through microbial analysis."
       />
@@ -43,4 +56,15 @@ import Layout from "../layouts/Layout.astro";
       />
     </div>
   </section>
-</Layout>
+</HomeLayout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const projects = document.getElementById("projects");
+    if (!projects) return;
+
+    projects.scrollIntoView({
+      behavior: "smooth",
+    });
+  });
+</script>

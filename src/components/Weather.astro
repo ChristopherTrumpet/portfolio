@@ -3,23 +3,26 @@ import { getWeather } from "../lib/weatherCache";
 
 const weather = await getWeather();
 
-let state = "";
-if (weather?.is_day) {
-  state = "☀️";
-} else if (!weather?.is_day) {
-  state = "🛏️";
-} else if (weather?.cloud_cover > 80) {
-  state = "☁️";
-} else if (weather?.rain > 50) {
-  state = "🌧️";
-} else if (weather?.snowfall > 50) {
+if (!weather) {
+  return new Response(null, { status: 404 });
+}
+
+let state = "☀️";
+
+if (weather.snowfall > 0.5) {
   state = "🌨️";
+} else if (weather.rain > 0.5) {
+  state = "🌧️";
+} else if (weather.cloud_cover > 80) {
+  state = "☁️";
+} else if (!weather.is_day) {
+  state = "🛏️";
 }
 ---
 
 <div class="flex items-center gap-2">
   <p class="mb-0.5">
     {state}
-    {weather!.temperature_2m}&deg;
+    {weather.temperature_2m}&deg;
   </p>
 </div>
