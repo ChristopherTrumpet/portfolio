@@ -1,11 +1,61 @@
 ---
 import Bookmarks from "./Bookmarks.astro";
+import Projects from "./Projects.astro";
 ---
 
-<main class="container max-w-2xl px-4 mx-auto">
-  <Bookmarks server:defer>
-    <div slot="fallback" class="grid size-full place-items-center">
-      <p>Loading bookmarks...</p>
+<main
+  class="container max-w-2xl px-4 mx-auto py-8 h-dvh flex flex-col justify-center"
+>
+  <div
+    class="mb-8 flex gap-6 tracking-tight leading-none border-b border-zinc-300 w-full text-zinc-600"
+  >
+    <button id="bookmarkButton" class="active cursor-pointer pb-4"
+      >Bookmarks</button
+    >
+    <button id="projectButton" class="cursor-pointer pb-4">Projects</button>
+  </div>
+  <section class="h-[65%] flex flex-col">
+    <div id="bookmarks" class="size-full">
+      <Bookmarks server:defer>
+        <div slot="fallback" class="grid size-full place-items-center">
+          <p>Loading bookmarks...</p>
+        </div>
+      </Bookmarks>
     </div>
-  </Bookmarks>
+    <div id="projects" class="hidden">
+      <Projects />
+    </div>
+  </section>
 </main>
+
+<style>
+  .active {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-zinc-900);
+    border-bottom: solid 1px black;
+  }
+</style>
+
+<script>
+  const bookmarkButton: HTMLButtonElement | null =
+    document.querySelector("#bookmarkButton");
+  const projectButton: HTMLButtonElement | null =
+    document.querySelector("#projectButton");
+
+  const bookmarks: HTMLDivElement | null = document.querySelector("#bookmarks");
+  const projects: HTMLDivElement | null = document.querySelector("#projects");
+
+  bookmarkButton?.addEventListener("click", () => {
+    bookmarkButton.classList.add("active");
+    projectButton?.classList.remove("active");
+    bookmarks?.classList.remove("hidden");
+    projects?.classList.add("hidden");
+  });
+
+  projectButton?.addEventListener("click", () => {
+    projectButton.classList.add("active");
+    bookmarkButton?.classList.remove("active");
+    bookmarks?.classList.add("hidden");
+    projects?.classList.remove("hidden");
+  });
+</script>

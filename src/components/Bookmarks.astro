@@ -1,6 +1,6 @@
 ---
 import { API_URL } from "astro:env/server";
-import BookmarkItem from "../components/BookmarkItem.astro";
+import Bookmark from "../components/Bookmark.astro";
 
 const response = await fetch(`${API_URL}/bookmarks`, {
   headers: { "User-Agent": "portfolio/1.0 (internal-fetch)" },
@@ -8,8 +8,8 @@ const response = await fetch(`${API_URL}/bookmarks`, {
 const bookmarks = await response.json();
 ---
 
-<section class="flex flex-col h-fit lg:h-full py-16 lg:py-0 lg:justify-center">
-  <div class="w-full">
+<section class="flex flex-col lg:py-0 lg:justify-center">
+  <div class="w-full h-full">
     <h2
       class="mb-4 font-serif text-xl lg:text-2xl font-normal tracking-tight text-zinc-800"
     >
@@ -20,7 +20,7 @@ const bookmarks = await response.json();
       id="bookmark-list"
       class="dynamic-mask border-zinc-300 divide-y divide-zinc-300 max-h-[65vh] overflow-y-auto pr-3"
     >
-      {bookmarks.map((b: any) => <BookmarkItem {...b} />)}
+      {bookmarks.map((b: any) => <Bookmark {...b} />)}
     </div>
   </div>
 </section>

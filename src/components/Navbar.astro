@@ -3,7 +3,7 @@ import NavLink from "./NavLink.astro";
 ---
 
 <nav class="flex flex-wrap items-center justify-between py-8 px-4 lg:px-0">
-  <h2 class="text-lg font-serif tracking-tight">
+  <h2 class="text-lg font-serif tracking-tight leading-relaxed">
     <a href="/">Christopher Trumpet Jr. 🎺</a>
   </h2>
 
@@ -19,10 +19,10 @@ import NavLink from "./NavLink.astro";
 
   <ul
     id="menu"
-    class="hidden w-full flex-col gap-2 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0 lg:items-end lg:leading-tight"
+    class="hidden w-full flex-col gap-2 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0 lg:items-end lg:leading-relaxed"
   >
     <NavLink href={"/"} disabled={false}>home</NavLink>
-    <NavLink href={"/projects"} disabled={false}>projects</NavLink>
+    <!-- <NavLink href={"/projects"} disabled={false}>projects</NavLink> -->
     <div
       class="border-l border-r hidden lg:inline-block lg:h-4 border-zinc-300"
     >

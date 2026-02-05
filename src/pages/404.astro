@@ -1,19 +1,42 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
 ---
 
-<Layout hasSidebar={false}>
-  <div
-    class="flex flex-col items-center justify-center max-w-2xl mx-auto h-dvh"
-  >
-    <div>
-      <h1 class="mb-2 text-3xl font-bold tracking-tight">
-        [404] this page doesn't seem to exist...
-      </h1>
-      <p class="text-zinc-600">
-        Click <a href="/" class="text-sky-700">this</a> link to go back to the homepage
-        which <em>should</em> hopefully exist 🤞.
-      </p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#eee" />
+    <meta
+      name="description"
+      content="Personal website for Christopher Trumpet Jr. The site contains my portfolio, web toys, media archive, blogs, and cooking logs."
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Christopher Trumpet's personal website. I store my web toys, post some blogs sometimes, and show off some kitchen atrocities."
+    />
+    <title>[404] Oh no...</title>
+  </head>
+  <body class="h-dvh">
+    <div
+      class="flex flex-col items-center justify-center max-w-2xl mx-auto h-dvh"
+    >
+      <div>
+        <h1 class="mb-2 text-3xl font-bold tracking-tight">
+          [404] this page doesn't seem to exist...
+        </h1>
+        <p class="text-zinc-600">
+          Click <a href="/" class="text-sky-700">this</a> link to go back to the homepage
+          which <em>should</em> hopefully exist 🤞.
+        </p>
+      </div>
     </div>
-  </div>
-</Layout>
+  </body>
+  <div id="grainy"></div>
+</html>
