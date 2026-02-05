@@ -7,6 +7,7 @@ import Main from "../components/Main.astro";
 import Chat from "../components/Chat";
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import GrainyBackground from "../components/GrainyBackground.astro";
 
 const title = "Christopher Trumpet";
 const description =
@@ -29,7 +30,7 @@ const description =
   </head>
   <body>
     <div
-      class="grid grid-rows-[1fr_auto_auto] grid-cols-1 lg:grid-cols-[1fr_auto_1fr] h-dvh w-full"
+      class="grid grid-rows-[1fr_auto_auto] grid-cols-1 lg:grid-cols-[1fr_auto_1fr] min-h-dvh lg:h-dvh w-full"
     >
       <Sidebar />
       <Divider />
@@ -39,6 +40,6 @@ const description =
       </div>
     </div>
     <Chat client:load />
-    <div id="grainy"></div>
+    <GrainyBackground />
   </body>
 </html>

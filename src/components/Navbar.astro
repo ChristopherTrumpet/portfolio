@@ -2,13 +2,13 @@
 import NavLink from "./NavLink.astro";
 ---
 
-<nav class="flex flex-wrap items-center justify-between py-8 px-4 lg:px-0">
-  <h2 class="text-lg font-serif tracking-tight leading-relaxed">
+<nav class="flex flex-wrap items-center justify-between px-4 py-8 lg:px-0">
+  <h2 class="font-serif text-lg leading-relaxed tracking-tight">
     <a href="/">Christopher Trumpet Jr. 🎺</a>
   </h2>
 
-  <button id="menu-btn" class="block md:hidden p-2 focus:outline-none">
-    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <button id="menu-btn" class="block p-2 md:hidden focus:outline-none">
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -19,17 +19,23 @@ import NavLink from "./NavLink.astro";
 
   <ul
     id="menu"
-    class="hidden w-full flex-col gap-2 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0 lg:items-end lg:leading-relaxed"
+    class="flex-col hidden w-full gap-2 pt-4 md:flex md:w-auto md:flex-row md:gap-6 md:pt-0 lg:items-end lg:leading-relaxed"
   >
     <NavLink href={"/"} disabled={false}>home</NavLink>
     <!-- <NavLink href={"/projects"} disabled={false}>projects</NavLink> -->
     <div
-      class="border-l border-r hidden lg:inline-block lg:h-4 border-zinc-300"
+      class="hidden border-l border-r lg:inline-block lg:h-4 border-zinc-300"
     >
     </div>
-    <NavLink href={"/media"} disabled={false}>media</NavLink>
-    <NavLink href={"/sandbox"} disabled={false}>sandbox</NavLink>
-    <NavLink href={"/blog"} disabled={false}>blog</NavLink>
+    <NavLink href={"/media"} disabled={false} ariaLabel="Go to media archive"
+      >media</NavLink
+    >
+    <NavLink href={"/sandbox"} disabled={false} arialabel="Go to sandbox"
+      >sandbox</NavLink
+    >
+    <NavLink href={"/blog"} disabled={false} ariaLabel="Go to blog post archive"
+      >blog</NavLink
+    >
   </ul>
 </nav>
 

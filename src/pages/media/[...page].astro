@@ -18,32 +18,32 @@ const { page } = Astro.props;
 ---
 
 <Layout>
-  <div class="mb-8 px-4 lg:px-0">
+  <div class="px-4 mb-8 lg:px-0">
     <h1
-      class="text-3xl lg:text-5xl lg:px-0 font-serif tracking-tight leading-loose lg:leading-relaxed"
+      class="font-serif text-3xl leading-loose tracking-tight lg:text-5xl lg:px-0 lg:leading-relaxed"
     >
       my media archive...
     </h1>
-    <p class="text-sm lg:text-base font-sans text-zinc-700">
+    <p class="font-sans text-sm lg:text-base text-zinc-700">
       I sometimes take photos / videos. I also occasionally create 3d models.
     </p>
   </div>
 
-  <div id="masonry-root" class="flex gap-2 mx-auto px-2 lg:px-0 items-start">
+  <div id="masonry-root" class="flex items-start gap-2 px-2 mx-auto lg:px-0">
   </div>
 
   <div id="staging-area" class="hidden">
     {
       page.data.map((asset) => (
-        <div class="masonry-item mb-2 w-full z-20">
+        <div class="z-20 w-full mb-2 masonry-item">
           {asset.data.resource_type === "image" && (
             <CldImage
               src={asset.data.public_id}
               width={asset.data.width}
               height={asset.data.height}
-              alt={asset.data.context?.custom?.alt || "Image description"}
+              alt={asset.data.context?.custom?.alt || ""}
               loading="lazy"
-              class="w-full h-auto block bg-zinc-100 transition-opacity duration-500"
+              class="block w-full h-auto transition-opacity duration-500 bg-zinc-100"
             />
           )}
         </div>
@@ -51,15 +51,15 @@ const { page } = Astro.props;
     }
   </div>
 
-  <div id="loading-sentinel" class="py-12 text-center w-full">
+  <div id="loading-sentinel" class="w-full py-12 text-center">
     {
       page.url.next ? (
         <div class="flex flex-col items-center gap-2">
           <div class="spinner" />
-          <span class="text-zinc-400 text-sm font-sans">Loading more...</span>
+          <span class="font-sans text-sm text-zinc-400">Loading more...</span>
         </div>
       ) : (
-        <span class="text-zinc-400 text-sm font-sans">End of archive.</span>
+        <span class="font-sans text-sm text-zinc-400">End of archive.</span>
       )
     }
   </div>
@@ -83,20 +83,6 @@ const { page } = Astro.props;
   @keyframes spin {
     to {
       transform: rotate(360deg);
-    }
-  }
-
-  :global(.fade-in) {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 </style>
@@ -209,7 +195,7 @@ const { page } = Astro.props;
             nextUrlDiv = null;
             if (sentinel)
               sentinel.innerHTML =
-                '<span class="text-zinc-400 text-sm font-sans">End of archive.</span>';
+                '<span class="font-sans text-sm text-zinc-400">End of archive.</span>';
           }
         } catch (error) {
           console.error(error);

@@ -1,5 +1,5 @@
 ---
-const { href, disabled } = Astro.props;
+const { href, disabled, ariaLabel } = Astro.props;
 const { pathname } = Astro.url;
 
 const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
@@ -12,7 +12,7 @@ const disabledClasses = "opacity-25 pointer-events-none cursor-not-allowed";
 <li>
   <a
     href={href}
-    tabindex={disabled && -1}
+    aria-label={ariaLabel}
     aria-disabled={disabled}
     aria-describedby={disabled &&
       "This link is disabled as the page it links to is not fully developed yet"}

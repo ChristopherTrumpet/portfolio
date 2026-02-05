@@ -6,9 +6,11 @@ interface Props {
   url: string;
   comments?: string;
   type: "video" | "article" | "blog" | "academic";
+  classList?: string;
 }
 
-const { title, author, dateAdded, url, comments, type } = Astro.props;
+const { title, author, dateAdded, url, comments, type, classList } =
+  Astro.props;
 
 const iconMap = {
   video:
@@ -25,7 +27,10 @@ const date = new Date(dateAdded).toLocaleDateString();
 ---
 
 <article
-  class="bookmark-item first:border-t last:border-b py-4 border-zinc-300 text-zinc-800"
+  class:list={[
+    "bookmark-item first:border-t last:border-b py-4 border-zinc-300 text-zinc-800 fade-in",
+    classList,
+  ]}
 >
   <div class="flex items-center justify-between">
     <div class="flex min-w-0 gap-2">
@@ -57,7 +62,7 @@ const date = new Date(dateAdded).toLocaleDateString();
     {
       comments && (
         <button
-          class="comment-toggle pl-2 ml-2 transition-all cursor-pointer shrink-0 hover:text-zinc-600 hover:scale-110"
+          class="pl-2 ml-2 transition-all cursor-pointer comment-toggle shrink-0 hover:text-zinc-600 hover:scale-110"
           aria-label="Toggle comment"
         >
           <svg

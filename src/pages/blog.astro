@@ -10,30 +10,32 @@ const allPosts = Object.values(
 );
 ---
 
-<Layout classList="max-w-3xl">
-  <section class="flex flex-col px-4 lg:px-0">
-    <div class="mb-8">
+<Layout classList="max-w-2xl">
+  <section class="grid grid-cols-1 gird-rows-[auto_1fr] px-4 lg:px-0">
+    <div class="mb-8 lg:mt-24">
       <h1
-        class="text-3xl lg:text-5xl font-serif tracking-tight leading-tight pb-2"
+        class="pb-2 font-serif text-3xl leading-tight tracking-tight lg:text-5xl"
       >
         my blog posts...
       </h1>
-      <p class="text-zinc-700 leading-snug text-base">
-        some food adventures, some devlogs, some random things
+      <p class="text-base leading-snug text-zinc-700">
+        some food adventures, sane devlogs, sporadic thoughts
       </p>
     </div>
-    <section class="grow">
+    <section>
       <ul class="flex flex-col space-y-2">
         {
           allPosts.map((post: any) => (
             <li>
               <a
                 href={post.url}
-                class="flex gap-2 font-semibold tracking-tight leading-snug"
+                class="flex gap-2 font-semibold leading-snug tracking-tight visited:text-zinc-600"
               >
                 {post.frontmatter.title}
                 <div class="border-b border-dotted grow" />
-                <p class="font-mono font-normal leading-snug">12</p>
+                <p class="font-mono font-normal leading-snug">
+                  {post.frontmatter.date.split("/")[1]}
+                </p>
               </a>
             </li>
           ))

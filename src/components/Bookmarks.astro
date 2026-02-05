@@ -8,20 +8,12 @@ const response = await fetch(`${API_URL}/bookmarks`, {
 const bookmarks = await response.json();
 ---
 
-<section class="flex flex-col lg:py-0 lg:justify-center">
-  <div class="w-full h-full">
-    <h2
-      class="mb-4 font-serif text-xl lg:text-2xl font-normal tracking-tight text-zinc-800"
-    >
-      what i've been reading / watching...
-    </h2>
-
-    <div
-      id="bookmark-list"
-      class="dynamic-mask border-zinc-300 divide-y divide-zinc-300 max-h-[65vh] overflow-y-auto pr-3"
-    >
-      {bookmarks.map((b: any) => <Bookmark {...b} />)}
-    </div>
+<section class="flex flex-col max-h-full lg:py-0 lg:justify-center">
+  <div
+    id="bookmark-list"
+    class="max-h-full pr-3 overflow-y-auto divide-y dynamic-mask border-zinc-300 divide-zinc-300"
+  >
+    {bookmarks.map((b: any) => <Bookmark {...b} />)}
   </div>
 </section>
 

@@ -4,20 +4,29 @@ import Projects from "./Projects.astro";
 ---
 
 <main
-  class="container max-w-2xl px-4 mx-auto py-8 h-dvh flex flex-col justify-center"
+  class="container flex flex-col justify-center max-w-2xl px-4 py-8 mx-auto h-dvh"
 >
   <div
-    class="mb-8 flex gap-6 tracking-tight leading-none border-b border-zinc-300 w-full text-zinc-600"
+    class="flex w-full gap-6 mb-8 leading-none tracking-tight border-b border-zinc-300 text-zinc-600"
   >
-    <button id="bookmarkButton" class="active cursor-pointer pb-4"
+    <button id="bookmarkButton" class="pb-4 cursor-pointer active"
       >Bookmarks</button
     >
-    <button id="projectButton" class="cursor-pointer pb-4">Projects</button>
+    <button id="projectButton" class="pb-4 cursor-pointer">Projects</button>
   </div>
-  <section class="h-[65%] flex flex-col">
+  <section class="relative h-[65%] flex flex-col">
     <div id="bookmarks" class="size-full">
+      <h2
+        class="mb-4 font-serif text-xl font-normal tracking-tight lg:text-2xl text-zinc-800"
+      >
+        what i've been reading / watching...
+      </h2>
       <Bookmarks server:defer>
-        <div slot="fallback" class="grid size-full place-items-center">
+        <div
+          slot="fallback"
+          class="flex flex-col items-center justify-center min-h-full gap-2"
+        >
+          <div class="spinner"></div>
           <p>Loading bookmarks...</p>
         </div>
       </Bookmarks>
@@ -33,6 +42,34 @@ import Projects from "./Projects.astro";
     font-weight: var(--font-weight-semibold);
     color: var(--color-zinc-900);
     border-bottom: solid 1px black;
+  }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e4e4e7;
+    border-top-color: #52525b;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  :global(.fade-in) {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 

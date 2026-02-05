@@ -1,6 +1,7 @@
 ---
 import Chat from "../components/Chat";
 import Footer from "../components/Footer.astro";
+import GrainyBackground from "../components/GrainyBackground.astro";
 import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
 
@@ -47,6 +48,6 @@ const { title = "Christopher Trumpet", classList } = Astro.props;
       <Footer />
     </div>
     <Chat client:load />
+    <GrainyBackground />
   </body>
-  <div id="grainy"></div>
 </html>
