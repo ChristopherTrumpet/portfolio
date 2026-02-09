@@ -38,20 +38,30 @@ export default function ChatBot() {
   }, [messages]);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const checkPosition = () => {
+      const docHeight = document.documentElement.scrollHeight;
       const currentScroll = window.innerHeight + window.scrollY;
-      const docHeight = document.documentElement.offsetHeight;
 
-      if (currentScroll >= docHeight - 50) {
+      if (currentScroll >= docHeight - 35) {
         setIsAtBottom(true);
       } else {
         setIsAtBottom(false);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", checkPosition);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    const resizeObserver = new ResizeObserver(() => {
+      checkPosition();
+    });
+    resizeObserver.observe(document.documentElement);
+
+    checkPosition();
+
+    return () => {
+      window.removeEventListener("scroll", checkPosition);
+      resizeObserver.disconnect();
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -113,16 +123,14 @@ export default function ChatBot() {
     <div
       className={`fixed z-50 transition-all duration-300 ${
         isOpen
-          ? "inset-0 p-4 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-4 sm:right-4 sm:p-0 sm:block"
+          ? "inset-0 flex flex-col items-center justify-center bg-black/5 sm:bg-transparent sm:inset-auto sm:bottom-4 sm:right-4 sm:p-0 sm:block"
           : `right-4 items-end lg:bottom-4 ${
-              isAtBottom
-                ? "bottom-16"
-                : "bottom-4 max-lg:[@supports(bottom:env(safe-area-inset-bottom))]:bottom-[env(safe-area-inset-bottom)]"
+              isAtBottom ? "bottom-16" : "bottom-4"
             }`
       }`}
     >
       {isOpen && (
-        <div className="flex flex-col w-full h-full overflow-hidden border sm:w-104 sm:h-152 lg:w-md lg:h-168 bg-zinc-50 border-zinc-300 sm:rounded-2xl rounded-xl">
+        <div className="flex flex-col w-full h-full overflow-hidden border sm:w-104 sm:h-152 lg:w-md lg:h-168 bg-zinc-50 border-zinc-300 sm:rounded-2xl rounded-none">
           <div className="flex items-center justify-between p-4 border-b bg-zinc-100 border-zinc-300 shrink-0">
             <div>
               <h3 className="font-bold text-zinc-800">cmkt.ai</h3>
