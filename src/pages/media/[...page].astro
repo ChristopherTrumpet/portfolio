@@ -43,7 +43,7 @@ const { page } = Astro.props;
               height={asset.data.height}
               alt={asset.data.context?.custom?.alt || ""}
               loading="lazy"
-              class="block w-full h-auto transition-opacity duration-500 bg-zinc-100"
+              class="block w-full h-auto transition-opacity duration-500 opacity-0"
             />
           )}
         </div>
@@ -125,7 +125,19 @@ const { page } = Astro.props;
 
       shortestCol.appendChild(item);
 
-      item.classList.add("fade-in");
+      const img = item.querySelector("img");
+      if (img) {
+        const reveal = () => {
+          img.classList.remove("opacity-0");
+          img.classList.add("fade-in");
+        };
+
+        if (img.complete) {
+          reveal();
+        } else {
+          img.addEventListener("load", reveal, { once: true });
+        }
+      }
     });
   }
 

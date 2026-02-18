@@ -1,0 +1,40 @@
+<button
+  class="btt hidden fixed right-4 bottom-32 z-50 cursor-pointer bg-zinc-900 text-zinc-50 rounded-full p-4 duration-75"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.25"
+      d="M12 5v14m6-8l-6-6m-6 6l6-6"></path>
+  </svg>
+</button>
+
+<script>
+  const backToTop = document.querySelector(".btt");
+
+  const toggleBackToTop = () => {
+    const scrolled =
+      document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrolled > 300) {
+      backToTop?.classList.remove("hidden");
+      backToTop?.classList.add("fade-in");
+    } else {
+      backToTop?.classList.add("hidden");
+    }
+  };
+
+  window.addEventListener("scroll", toggleBackToTop);
+
+  backToTop?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
