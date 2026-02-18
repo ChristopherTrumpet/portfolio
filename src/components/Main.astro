@@ -27,7 +27,7 @@ import Projects from "./Projects.astro";
           class="flex flex-col items-center justify-center min-h-full gap-2"
         >
           <div class="spinner"></div>
-          <p>Loading bookmarks...</p>
+          <p class="text-sm md:text-base">Loading bookmarks...</p>
         </div>
       </Bookmarks>
     </div>
@@ -81,6 +81,13 @@ import Projects from "./Projects.astro";
 
   const bookmarks: HTMLDivElement | null = document.querySelector("#bookmarks");
   const projects: HTMLDivElement | null = document.querySelector("#projects");
+
+  bookmarks?.addEventListener("animationend", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains("fade-in")) {
+      target.classList.remove("fade-in");
+    }
+  });
 
   bookmarkButton?.addEventListener("click", () => {
     bookmarkButton.classList.add("active");
