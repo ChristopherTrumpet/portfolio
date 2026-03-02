@@ -5,8 +5,8 @@ const { pathname } = Astro.url;
 const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
 
 const hoveredClasses =
-  "hover:translate-y-0.5 hover:shadow-[0_2px_0_0] hover:bg-white";
-const activeClasses = "bg-white translate-y-1 shadow-none";
+  "hover:translate-y-0.5 hover:after:bg-white hover:before:translate-y-0.5";
+const activeClasses = "after:bg-white translate-y-1 before:translate-y-0";
 const disabledClasses = "opacity-25 pointer-events-none cursor-not-allowed";
 ---
 
@@ -20,7 +20,14 @@ const disabledClasses = "opacity-25 pointer-events-none cursor-not-allowed";
   data-active-class={activeClasses}
   data-hover-class={hoveredClasses}
   class:list={[
-    "rounded-full flex items-center justify-center gap-2 py-2 md:px-5 md:py-2 leading-none capitalize text-center cursor-pointer border-zinc-700 shadow-zinc-700 border shadow-[0_4px_0_0] active:translate-y-1 active:shadow-none transition-all",
+    // Base
+    "relative z-0 flex items-center justify-center gap-2 rounded-full border border-transparent py-2 text-center leading-none capitalize transition-all cursor-pointer md:px-5 md:py-2",
+    // Foreground
+    "after:absolute after:-inset-px after:-z-1 after:rounded-full after:border after:border-zinc-800 after:bg-[#eee] after:transition-all",
+    // Shadow
+    "before:absolute before:-inset-px before:-z-2 before:rounded-full before:bg-zinc-800 before:transition-all before:translate-y-1",
+    // Active
+    "active:translate-y-1 active:before:translate-y-0",
     isActive ? activeClasses : hoveredClasses,
     disabled && disabledClasses,
   ]}

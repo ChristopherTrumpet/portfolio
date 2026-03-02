@@ -1,16 +1,12 @@
 ---
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
 import Layout from "../layouts/Layout.astro";
 
-function ellipsesPadding() {}
-
 const allPosts = Object.values(
-  import.meta.glob("./posts/*.md", { eager: true }),
+  import.meta.glob("./blog/*.md", { eager: true }),
 );
 ---
 
-<Layout classList="max-w-2xl">
+<Layout classList="max-w-3xl">
   <section class="grid grid-cols-1 gird-rows-[auto_1fr] px-4 lg:px-0">
     <div class="mb-8 lg:mt-24">
       <h1

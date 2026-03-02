@@ -22,16 +22,20 @@ const { frontmatter } = Astro.props;
     <title>{frontmatter.title}</title>
   </head>
   <body>
-    <div class="container flex flex-col max-w-2xl mx-auto h-dvh lg:px-0">
+    <div class="container flex flex-col max-w-3xl mx-auto h-dvh lg:px-0">
       <Navbar />
       <main
         class="flex flex-col items-center justify-between px-4 antialiased blog grow lg:px-0"
       >
-        <div>
-          <h1>{frontmatter.title}</h1>
+        <article>
+          <header>
+            <p class="date">{frontmatter.date}</p>
+            <h1>{frontmatter.title}</h1>
+            <p class="description">{frontmatter.description}</p>
+          </header>
           <hr class="mb-6 border-zinc-300" />
           <slot />
-        </div>
+        </article>
         <a
           href="/blog"
           aria-label="Thank you for reading, return to blog archive"
@@ -46,20 +50,51 @@ const { frontmatter } = Astro.props;
     <GrainyBackground />
   </body>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Lora:wght@400..500&display=swap");
+
+    /* Post Title */
     .blog :global(h1) {
-      font-family: var(--font-sans);
+      font-family: Lora, var(--font-sans);
       font-size: var(--text-3xl);
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--font-weight-medium);
       letter-spacing: var(--tracking-tight);
       line-height: var(--leading-tight);
       padding-bottom: 1rem;
+    }
+
+    /* Post Header */
+    .blog :global(header) {
       margin-bottom: 1rem;
     }
 
+    /* Description */
+    .blog :global(.description) {
+      color: var(--color-zinc-600);
+      padding-bottom: 0;
+    }
+
+    .blog :global(.date) {
+      font-family: var(--font-mono);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: 1rem;
+    }
+
+    .blog :global(a) {
+      text-decoration: underline;
+      padding-bottom: 1px;
+      text-underline-offset: 6px;
+    }
+
+    .blog :global(a):hover {
+      color: var(--color-zinc-400);
+    }
+
     @media (width >= 64rem) {
+      .blog :global(header) {
+        margin-top: 6rem;
+      }
       .blog :global(h1) {
         font-size: var(--text-4xl);
-        margin-top: 6rem;
       }
     }
 
@@ -68,10 +103,11 @@ const { frontmatter } = Astro.props;
       font-size: var(--text-base);
       color: var(--color-zinc-700);
       line-height: var(--leading-normal);
+      padding-bottom: 0.5rem;
     }
 
     .blog :global(h2) {
-      font-family: var(--font-serif);
+      font-family: Lora, var(--font-serif);
       font-size: var(--text-2xl);
       letter-spacing: var(--tracking-tight);
       margin: 1.5rem 0 1rem 0;
