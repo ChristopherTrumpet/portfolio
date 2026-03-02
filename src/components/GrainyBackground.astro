@@ -1,15 +1,4 @@
----
-import { getImage } from "astro:assets";
-import Grain from "../assets/grain.gif";
-
-const optimizedGrain = await getImage({
-  src: Grain,
-  format: "webp",
-});
----
-
-<div id="grainy" style={{ backgroundImage: `url(${optimizedGrain.src})` }}>
-</div>
+<div id="grainy" style={{ backgroundImage: `url('/grain.gif')` }}></div>
 
 <style>
   #grainy {
