@@ -5,7 +5,7 @@ import { Image } from "astro:assets";
 ---
 
 <Layout>
-  <div class="px-4 lg:px-0">
+  <div class="px-4 lg:px-0 h-full">
     <header>
       <h1
         class="text-3xl lg:text-5xl lg:px-0 font-serif tracking-tight leading-loose lg:leading-relaxed"
@@ -16,26 +16,21 @@ import { Image } from "astro:assets";
         a collection of web toys, games, and interactive programs
       </p>
     </header>
-    <section class="empty">
-      <Image
-        src={sandboxImage}
-        alt="An empty sandbox graphic."
-        class="opacity-35 mb-6 max-w-sm md:max-w-lg md:mb-4"
-        loading={"eager"}
-      />
-      <p class="text-zinc-500 w-68 mx-auto">
-        Sorrrrry, I'm still currently cooking up some things to put up on this
-        page.
-      </p>
+    <section
+      class="grid place-items-center -translate-y-24 md:-translate-y-48 h-full"
+    >
+      <div>
+        <Image
+          src={sandboxImage}
+          alt="An empty sandbox graphic."
+          class="opacity-35 mb-6 w-sm md:w-lg md:mb-4"
+          loading={"eager"}
+        />
+        <p class="text-zinc-500 w-68 mx-auto">
+          Sorrrrry, I'm still currently cooking up some things to put up on this
+          page.
+        </p>
+      </div>
     </section>
   </div>
 </Layout>
-
-<style>
-  .empty {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-</style>
