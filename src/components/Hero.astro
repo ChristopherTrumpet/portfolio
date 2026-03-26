@@ -4,7 +4,7 @@ import HeroNavigation from "./HeroNavigation.astro";
 const hireInquiry =
   "mailto:christopher.m.t.2005@gmail.com?subject=[Job%20Inquiry]%20<insert%20subject>";
 
-const forHire = true;
+const forHire = false;
 ---
 
 <section
@@ -16,8 +16,16 @@ const forHire = true;
         href={hireInquiry}
         class="inline-block font-bold tracking-tight w-fit hover:underline"
       >
-        Currently employed ✈️
+        Currently for hire
       </a>
+    )
+  }
+
+  {
+    !forHire && (
+      <p class="inline-block font-bold tracking-tight w-fit">
+        Currently employed <span class="px-2">✈️</span>
+      </p>
     )
   }
   <header class="text-5xl">
